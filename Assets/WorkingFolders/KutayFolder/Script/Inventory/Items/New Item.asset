@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c819faef6c27172479b7fa2779d81132, type: 3}
   m_Name: New Item
   m_EditorClassIdentifier: 
-  itemName: 
-  itemIcon: {fileID: 0}
+  itemName: New Item
+  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   itemID: 0
-  itemDescription: 
+  itemDescription: fsgdgsd
   itemValue: 0
   itemDamage: 0
   itemArmor: 0
-  itemType: 0
+  itemType: 1
+  stackable: 1
+  maxStackSize: 4

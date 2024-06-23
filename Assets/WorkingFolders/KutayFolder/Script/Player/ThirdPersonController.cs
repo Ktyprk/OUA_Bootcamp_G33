@@ -7,8 +7,7 @@ using UnityEngine.AI;
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, look, fire;
-    public NavMeshAgent agent;
+    private InputAction move, look, interact;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -16,13 +15,16 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private CinemachineFreeLook freeLookCamera;
 
+    private ISearchable iSearchable;
+    private ICollectible iCollectible;
+    private IItemAvailability iItemAvailability;
+
     private void Awake()
     {
         playerActionAsset = new ThirdPersonActionAsset();
         move = playerActionAsset.Player.Move;
         look = playerActionAsset.Player.Look;
-        fire = playerActionAsset.Player.Fire;
-        agent = GetComponent<NavMeshAgent>();
+        interact = playerActionAsset.Player.Interact;
     }
 
     private void OnEnable()
@@ -30,7 +32,7 @@ public class ThirdPersonController : MonoBehaviour
         playerActionAsset.Enable();
         look.performed += Look;
         look.canceled += Look;
-        fire.performed += CheckNavMesh;
+        interact.performed += Interact;
     }
 
     private void OnDisable()
@@ -38,23 +40,13 @@ public class ThirdPersonController : MonoBehaviour
         playerActionAsset.Disable();
         look.performed -= Look;
         look.canceled -= Look;
-        fire.performed -= CheckNavMesh;
+        interact.performed -= Interact;
     }
 
     private void Update()
     {
         Vector2 input = move.ReadValue<Vector2>();
-
-        if (input != Vector2.zero)
-        {
-            agent.isStopped = true;
-            agent.destination = transform.position;
-        }
-        else
-        {
-            agent.isStopped = false;
-        }
-
+        
         LookAt(input);
 
         Vector3 forward = freeLookCamera.transform.forward;
@@ -93,29 +85,56 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Look(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        // if (context.performed)
+        // {
+        //     freeLookCamera.m_XAxis.m_MaxSpeed = 300f;
+        // }
+        // else if (context.canceled)
+        // {
+        //     freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
+        // }
+    }
+    
+    private void Interact(InputAction.CallbackContext context)
+    {
+        iSearchable?.Search();
+        iCollectible?.Collect();
+        iItemAvailability?.UseItem();
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<ISearchable>() != null)
         {
-            freeLookCamera.m_XAxis.m_MaxSpeed = 300f;
+            iSearchable = other.GetComponent<ISearchable>();
         }
-        else if (context.canceled)
+        
+        if (other.GetComponent<ICollectible>() != null)
         {
-            freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
+            iCollectible = other.GetComponent<ICollectible>();
+        }
+          
+        if (other.GetComponent<IItemAvailability>() != null)
+        {
+            iItemAvailability = other.GetComponent<IItemAvailability>();
         }
     }
-
-    private void CheckNavMesh(InputAction.CallbackContext context)
+    
+    private void OnTriggerExit(Collider other)
     {
-        Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas))
+        if (other.GetComponent<ISearchable>() == iSearchable)
         {
-            agent.destination = hit.point;
-            Debug.Log("Hit point is within the NavMesh.");
+            iSearchable = null;
         }
-        else
+        
+        if (other.GetComponent<ICollectible>() == iCollectible)
         {
-            Debug.Log("Hit point is outside the NavMesh.");
+            iCollectible = null;
+        }
+        
+        if (other.GetComponent<IItemAvailability>() == iItemAvailability)
+        {
+            iItemAvailability = null;
         }
     }
 }

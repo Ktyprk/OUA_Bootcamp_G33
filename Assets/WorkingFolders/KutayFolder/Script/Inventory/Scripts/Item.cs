@@ -14,14 +14,17 @@ public class Item : ScriptableObject
     public int itemArmor;
     public ItemType itemType;
     
+    public bool stackable = true;
+    public int maxStackSize = 4;
+    
     public enum ItemType
     {
         Weapon,
-        Armor,
         Consumable,
         Quest,
         Money
     }
+    
     public Item(string name, Sprite icon, int id, string description, int value, int damage, int armor, ItemType type)
     {
         itemName = name;
@@ -34,16 +37,16 @@ public class Item : ScriptableObject
         itemType = type;
     }
     
-    public Item(Item item)
-    {
-        itemName = item.itemName;
-        itemIcon = item.itemIcon;
-        itemID = item.itemID;
-        itemDescription = item.itemDescription;
-        itemValue = item.itemValue;
-        itemDamage = item.itemDamage;
-        itemArmor = item.itemArmor;
-        itemType = item.itemType;
-    }
+    // public Item(Item item)
+    // {
+    //     itemName = item.itemName;
+    //     itemIcon = item.itemIcon;
+    //     itemID = item.itemID;
+    //     itemDescription = item.itemDescription;
+    //     itemValue = item.itemValue;
+    //     itemDamage = item.itemDamage;
+    //     itemArmor = item.itemArmor;
+    //     itemType = item.itemType;
+    // }
     
 }
