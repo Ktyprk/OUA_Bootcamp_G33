@@ -350,7 +350,7 @@ MonoBehaviour:
   highlightedEffect: {fileID: 5280381825749348497}
   lootImage: {fileID: 515794125962663931}
   lootNameText: {fileID: 6154182429575407393}
-  lootText: {fileID: 6154182429575407393}
+  lootText: {fileID: 7125818120427360738}
   missionImage: {fileID: 4124530690124851784}
   item: {fileID: 0}
 --- !u!1 &5231026205506469368

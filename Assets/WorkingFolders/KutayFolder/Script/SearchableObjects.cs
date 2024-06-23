@@ -11,8 +11,10 @@ public class SearchableObjects : MonoBehaviour, ISearchable
     [SerializeField] private float searchTime = 2f;
 
     private bool hasBeenSearched = false;
+    private bool isOpenList = false;
     
     [SerializeField] private GameObject buttonPrefab; 
+    [SerializeField] private GameObject scrollView; 
     [SerializeField] private Transform scrollViewContent;
     [SerializeField] private List<Item> items = new List<Item>();
      private List<LootController> lootControllers = new List<LootController>();
@@ -20,7 +22,8 @@ public class SearchableObjects : MonoBehaviour, ISearchable
      
      public ThirdPersonActionAsset playerActionAsset;
      private InputAction UIinput;
-     
+     private ISearchable _searchableImplementation;
+
      private void Awake()
      {
          playerActionAsset = new ThirdPersonActionAsset();
@@ -34,30 +37,20 @@ public class SearchableObjects : MonoBehaviour, ISearchable
             StopAllCoroutines();
             StartCoroutine(SearchObject());
         }
-        else
+        else if (!isOpenList)
         {
-           //true
+           OpenList();
+        }else if (isOpenList)
+        {
+            PickupLoot();
         }
     }
 
-    private void Update()
+    public void PickupLoot()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (scrollView.activeSelf)
         {
-            
-        }
-        
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-           
-        }
-        
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log(lootControllers[selectedLootIndex].item.itemID);
-            items.Remove(lootControllers[selectedLootIndex].item);
-            Destroy(lootControllers[selectedLootIndex].gameObject);
-            OpenList();
+            PickupItem(lootControllers[selectedLootIndex]);
         }
     }
     
@@ -118,6 +111,8 @@ public class SearchableObjects : MonoBehaviour, ISearchable
     
     private void OpenList()
     {
+        scrollView.SetActive(true);
+        isOpenList = true;
         foreach (LootController lootController in lootControllers)
         {
             Destroy(lootController.gameObject);
@@ -137,6 +132,40 @@ public class SearchableObjects : MonoBehaviour, ISearchable
         }
     }
     
-    
-    
+    public void PickupItem(LootController lootController)
+    {
+        if (lootController == null) return;
+
+        Item item = lootController.item;
+        bool result = InventoryManager.instance.AddItem(item);
+        if (result)
+        {
+            items.Remove(item);
+            Destroy(lootController.gameObject);
+            lootControllers.Remove(lootController);
+            
+            if (selectedLootIndex >= lootControllers.Count)
+            {
+                selectedLootIndex = lootControllers.Count - 1;
+            }
+            
+            isOpenList = false;
+            
+            if (lootControllers.Count > 0)
+            {
+                OpenList();
+            }
+            else
+            {
+                scrollView.SetActive(false);
+            }
+        }
+    }
+
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        scrollView.SetActive(false);
+    }
 }

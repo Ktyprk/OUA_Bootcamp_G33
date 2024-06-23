@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
     private InputAction UIinput;
     private int selectedSlot = 0;
     private const int maxSlots = 4;
+    
+    public GameObject mainInventory;
 
     private void Awake()
     {
@@ -37,6 +39,18 @@ public class InventoryManager : MonoBehaviour
             {
                 ChangeSelectedSlot(number - 1);
             }
+        }
+    }
+    
+    public void OpenInventory()
+    {
+        if(mainInventory.activeSelf == true)
+        {
+            mainInventory.SetActive(false);
+        }
+        else
+        {
+            mainInventory.SetActive(true);
         }
     }
     

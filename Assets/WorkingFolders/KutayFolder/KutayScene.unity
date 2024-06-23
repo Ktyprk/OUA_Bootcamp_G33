@@ -657,6 +657,7 @@ MonoBehaviour:
   searchTime: 1
   buttonPrefab: {fileID: 5187436384438422598, guid: 4fd78ef23afa88e44823b325ad8bbe30,
     type: 3}
+  scrollView: {fileID: 1265333779}
   scrollViewContent: {fileID: 981373124}
   items:
   - {fileID: 11400000, guid: 72336ace0f749b048bcd8dc944ebaa34, type: 2}
@@ -680,7 +681,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &54442913
 MeshRenderer:
@@ -955,7 +956,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162801898}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018140972, y: -0.00000052482443, z: 0.00000052279114, w: 0.9998355}
+  m_LocalRotation: {x: -0.018140972, y: -0.00000052482443, z: 0.0000005227911, w: 0.9998355}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1139,7 +1140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228080805}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.018189969, y: -0.00000050548766, z: 0.00000054151036, w: 0.9998346}
+  m_LocalRotation: {x: 0.018190237, y: -0.0000005054887, z: 0.00000054151167, w: 0.9998346}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3165,6 +3166,7 @@ MonoBehaviour:
   - {fileID: 1789972308}
   inventoryItemPrefab: {fileID: 7606332727667446340, guid: 702e28b4d5d812c44b50589f9bc0418a,
     type: 3}
+  mainInventory: {fileID: 319581912}
 --- !u!4 &861946375
 Transform:
   m_ObjectHideFlags: 0
@@ -4338,7 +4340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1265333780
 RectTransform:
   m_ObjectHideFlags: 0

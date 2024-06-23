@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, look, interact;
+    private InputAction move, look, interact, inventory;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -25,6 +25,7 @@ public class ThirdPersonController : MonoBehaviour
         move = playerActionAsset.Player.Move;
         look = playerActionAsset.Player.Look;
         interact = playerActionAsset.Player.Interact;
+        inventory = playerActionAsset.Player.Inventory;
     }
 
     private void OnEnable()
@@ -33,6 +34,7 @@ public class ThirdPersonController : MonoBehaviour
         look.performed += Look;
         look.canceled += Look;
         interact.performed += Interact;
+        inventory.performed += Inventory;
     }
 
     private void OnDisable()
@@ -41,6 +43,7 @@ public class ThirdPersonController : MonoBehaviour
         look.performed -= Look;
         look.canceled -= Look;
         interact.performed -= Interact;
+        inventory.performed -= Inventory;
     }
 
     private void Update()
@@ -100,6 +103,11 @@ public class ThirdPersonController : MonoBehaviour
         iSearchable?.Search();
         iCollectible?.Collect();
         iItemAvailability?.UseItem();
+    }
+    
+    private void Inventory(InputAction.CallbackContext context)
+    {
+        InventoryManager.instance.OpenInventory();
     }
     
     private void OnTriggerEnter(Collider other)

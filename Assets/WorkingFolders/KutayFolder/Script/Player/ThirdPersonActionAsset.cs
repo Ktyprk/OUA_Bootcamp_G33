@@ -62,6 +62,15 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""367901e1-c7fb-471f-ad0d-699d9b137658"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -150,6 +159,17 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e92eb9c1-2821-48ea-96d2-72909f1e41a0"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -805,6 +825,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -883,6 +904,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @ThirdPersonActionAsset m_Wrapper;
@@ -891,6 +913,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -912,6 +935,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -928,6 +954,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1122,6 +1151,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
