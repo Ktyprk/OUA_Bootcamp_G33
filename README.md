@@ -1,12 +1,12 @@
-Oyunun İsmi
-?????
+Oyunun İsmi         
+?????        
 
-Grup Üyeleri 
-Kutay Perk
-Kader Sönmez
-Kuray Tunç
-İrem Fındık
-Kerem Kütük
+Grup Üyeleri            
+Kutay Perk           
+Kader Sönmez           
+Kuray Tunç          
+İrem Fındık           
+Kerem Kütük          
 
 Roller        
 İrem ,Kader ----Oyunun hikayenin ,mekanik ve diyalog  belirlenmesi         
