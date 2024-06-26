@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     private const int maxSlots = 4;
     
     public GameObject mainInventory;
+    public ScriptableObject itemsc;
 
     private void Awake()
     {
@@ -171,12 +172,41 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
     
-    // public void UseSelectedItem(int needItemid)
+    // public bool RemoveItem(Item item)
     // {
-    //     Item recivedItem = GetSelectedItem(needItemid, true);
-    //     if(recivedItem != null)
+    //     // Check if the item is stackable and decrement the count if possible
+    //     for (int i = 0; i < inventorySlots.Length; i++)
     //     {
-    //         Debug.Log("Used item: " + recivedItem.itemName);
+    //         InventorySlot slot = inventorySlots[i];
+    //         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    //         if (itemInSlot != null && itemInSlot.item == item && item.stackable && itemInSlot.count > 0)
+    //         {
+    //             itemInSlot.count--;
+    //             itemInSlot.RefreshCount();
+    //         
+    //             // If count reaches zero, remove the item from the slot
+    //             if (itemInSlot.count == 0)
+    //             {
+    //                 Destroy(itemInSlot.gameObject);
+    //             }
+    //             return true;
+    //         }
     //     }
+    //
+    //     // If the item is not stackable, search for and remove it from an occupied slot
+    //     for (int i = 0; i < inventorySlots.Length; i++)
+    //     {
+    //         InventorySlot slot = inventorySlots[i];
+    //         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    //         if (itemInSlot != null && itemInSlot.item == item && !item.stackable)
+    //         {
+    //             Destroy(itemInSlot.gameObject);
+    //             return true;
+    //         }
+    //     }
+    //
+    //     // Item was not found in the inventory
+    //     return false;
     // }
+
 }

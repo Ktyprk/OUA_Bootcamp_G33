@@ -14,13 +14,14 @@ public class LootController : MonoBehaviour
     public TextMeshProUGUI lootText;
     public Image missionImage;
     public Item item;
-
+    
     public void SetItemDetails(Item item)
     {
         this.item = item;
         lootImage.sprite = item.itemIcon;
         lootNameText.text = item.itemName;
         lootText.text = item.itemDescription;
+        
     }
     
     public void ToggleHighlight(bool toggle)

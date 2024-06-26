@@ -64,6 +64,7 @@ public class ThirdPersonController : MonoBehaviour
         moveDirection.Normalize();
         
         transform.Translate(moveDirection * maxSpeed * Time.deltaTime, Space.World);
+        
     }
 
     private void LookAt(Vector2 input)

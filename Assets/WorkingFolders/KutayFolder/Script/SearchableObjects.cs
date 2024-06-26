@@ -37,12 +37,16 @@ public class SearchableObjects : MonoBehaviour, ISearchable
             StopAllCoroutines();
             StartCoroutine(SearchObject());
         }
-        else if (!isOpenList)
+        else if (!isOpenList && lootControllers.Count > 0)
         {
            OpenList();
         }else if (isOpenList)
         {
             PickupLoot();
+        }
+        else
+        {
+            scrollView.SetActive(false);
         }
     }
 
@@ -166,6 +170,7 @@ public class SearchableObjects : MonoBehaviour, ISearchable
 
     private void OnTriggerExit(Collider other)
     {
+        isOpenList = false;
         scrollView.SetActive(false);
     }
 }

@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedEffect: {fileID: 5280381825749348497}
+  lootButton: {fileID: 2736550863187180638}
   lootImage: {fileID: 515794125962663931}
   lootNameText: {fileID: 6154182429575407393}
   lootText: {fileID: 7125818120427360738}

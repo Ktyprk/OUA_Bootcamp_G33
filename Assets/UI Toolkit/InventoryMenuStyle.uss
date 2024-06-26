@@ -1,0 +1,9 @@
+.header {
+    font-size: 20px;
+    -unity-text-align: middle-center;
+    -unity-font-style: normal;
+}
+
+.button {
+    font-size: 12px;
+}
