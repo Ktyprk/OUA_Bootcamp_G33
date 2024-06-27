@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c819faef6c27172479b7fa2779d81132, type: 3}
-  m_Name: New Item
+  m_Name: DemoFood
   m_EditorClassIdentifier: 
-  itemName: a Knife
-  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  itemID: 0
-  itemDescription: slice a bread
+  itemName: DemoFood
+  itemIcon: {fileID: 0}
+  itemID: 2
+  itemDescription: give some health
   itemValue: 0
   itemDamage: 0
   itemArmor: 0
-  itemType: 1
-  stackable: 1
-  maxStackSize: 4
+  itemType: 0
+  stackable: 0
+  isuseable: 1
+  isequippable: 0
+  maxStackSize: 0

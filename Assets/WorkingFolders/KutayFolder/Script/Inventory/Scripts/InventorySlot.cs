@@ -25,12 +25,36 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         image.color = notSelectedColor;
     }
     
+    
     public void OnDrop(PointerEventData eventData)
     {
-        if(transform.childCount == 0)
+        InventoryItem droppedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+        if (droppedItem != null)
         {
-            InventoryItem inventoryitem = eventData.pointerDrag.GetComponent<InventoryItem>();
-            inventoryitem.parentAfterDrag = transform;
+            if (transform.childCount == 0)
+            {
+                InventoryItem inventoryitem = eventData.pointerDrag.GetComponent<InventoryItem>(); 
+                inventoryitem.parentAfterDrag = transform;
+            }
+            else
+            {
+                InventoryItem currentSlotItem = transform.GetChild(0).GetComponent<InventoryItem>();
+                
+                Transform droppedItemParentBeforeDrag = droppedItem.parentBeforeDrag;
+                Transform currentSlotItemParentBeforeDrag = currentSlotItem.transform.parent;
+                
+                droppedItem.transform.SetParent(transform);
+                currentSlotItem.transform.SetParent(droppedItemParentBeforeDrag);
+                
+                droppedItem.parentAfterDrag = transform;
+                currentSlotItem.parentBeforeDrag = droppedItemParentBeforeDrag;
+                
+                currentSlotItemParentBeforeDrag.GetComponent<InventorySlot>().Deselect();
+                Deselect();
+            }
         }
     }
+
+
+    
 }

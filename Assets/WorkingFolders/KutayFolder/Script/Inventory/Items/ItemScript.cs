@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewItemScript : MonoBehaviour, ICollectible
+public class ItemScript : MonoBehaviour, IItemCollectible
 {
     public ScriptableObject itemsc;
     
@@ -10,10 +10,18 @@ public class NewItemScript : MonoBehaviour, ICollectible
     {
         PickupItem();
     }
-    
+
     public void PickupItem()
     {
         Item item = (Item)itemsc;
         bool result = InventoryManager.instance.AddItem(item);
+        Destroy(gameObject);
     }
+
 }
+
+public interface IItemCollectible 
+{ 
+    public void Collect();
+}
+

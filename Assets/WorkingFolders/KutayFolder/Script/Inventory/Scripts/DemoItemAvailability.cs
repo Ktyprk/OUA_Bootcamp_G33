@@ -5,11 +5,22 @@ using UnityEngine;
 public class DemoItemAvailability : MonoBehaviour, IItemAvailability
 {
     public int usableitemid;
-    
-    
+
     public void UseItem()
     {
-        InventoryManager.instance.GetSelectedItem(usableitemid,true);
+        Item item = InventoryManager.instance.GetSelectedItem();
+        
+        try 
+        {
+            if (item.itemID == usableitemid)
+            {
+                InventoryManager.instance.UseSelectedItem(item.itemID, true);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error using item: " + ex.Message);
+        }
+        
     }
-    
 }
