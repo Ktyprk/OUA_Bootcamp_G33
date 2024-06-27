@@ -10,10 +10,9 @@ public class InventoryManager : MonoBehaviour
     public ThirdPersonActionAsset playerActionAsset;
     private InputAction UIinput;
     private int selectedSlot = 0;
-    private const int maxSlots = 4;
+    private const int maxSlots = 28;
     
     public GameObject mainInventory;
-    public ScriptableObject itemsc;
 
     private void Awake()
     {
@@ -41,6 +40,12 @@ public class InventoryManager : MonoBehaviour
                 ChangeSelectedSlot(number - 1);
             }
         }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RemoveItem(0, 1);
+        }
+        
     }
     
     public void OpenInventory()
@@ -145,7 +150,7 @@ public class InventoryManager : MonoBehaviour
         inventoryItem.InitializeItem(item);
     }
     
-    public Item GetSelectedItem(int itemid, bool use)
+    public Item GetSelectedItem()
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
@@ -154,17 +159,9 @@ public class InventoryManager : MonoBehaviour
             int itemId = itemInSlot.item.itemID; 
             Item item = itemInSlot.item;
             
-            if (itemId == itemid && use)
-            {  
-                itemInSlot.count--;
-                if(itemInSlot.count == 0)
-                {
-                    Destroy(itemInSlot.gameObject);
-                }
-                else
-                {
-                    itemInSlot.RefreshCount();
-                }
+            if (itemInSlot.count > 0)
+            {
+               Debug.Log(item);
                 
             }
             return itemInSlot.item;
@@ -172,41 +169,65 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
     
-    // public bool RemoveItem(Item item)
-    // {
-    //     // Check if the item is stackable and decrement the count if possible
-    //     for (int i = 0; i < inventorySlots.Length; i++)
-    //     {
-    //         InventorySlot slot = inventorySlots[i];
-    //         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-    //         if (itemInSlot != null && itemInSlot.item == item && item.stackable && itemInSlot.count > 0)
-    //         {
-    //             itemInSlot.count--;
-    //             itemInSlot.RefreshCount();
-    //         
-    //             // If count reaches zero, remove the item from the slot
-    //             if (itemInSlot.count == 0)
-    //             {
-    //                 Destroy(itemInSlot.gameObject);
-    //             }
-    //             return true;
-    //         }
-    //     }
-    //
-    //     // If the item is not stackable, search for and remove it from an occupied slot
-    //     for (int i = 0; i < inventorySlots.Length; i++)
-    //     {
-    //         InventorySlot slot = inventorySlots[i];
-    //         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-    //         if (itemInSlot != null && itemInSlot.item == item && !item.stackable)
-    //         {
-    //             Destroy(itemInSlot.gameObject);
-    //             return true;
-    //         }
-    //     }
-    //
-    //     // Item was not found in the inventory
-    //     return false;
-    // }
+    public Item UseSelectedItem(int itemid, bool use)
+    {
+        InventorySlot slot = inventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    
+        if (itemInSlot != null)
+        {
+            int itemId = itemInSlot.item.itemID; 
+            Item item = itemInSlot.item;
+            
+            if (itemId == itemid && use)
+            {  
+                itemInSlot.count--;
+                if (itemInSlot.count == 0)
+                {
+                    Destroy(itemInSlot.gameObject);
+                }
+                else
+                {
+                    itemInSlot.RefreshCount();
+                }
+                return item; 
+            }
+            else
+            {
+                return null;
+            }
+        }
+    
+        return null; 
+    }
 
+    
+    public bool RemoveItem(int itemID, int amount)
+    {
+        for (int i = inventorySlots.Length - 1; i >= 0; i--)
+        {
+            InventorySlot slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+            if (itemInSlot != null && itemInSlot.item.itemID == itemID)
+            {
+                if (itemInSlot.count >= amount)
+                {
+                    itemInSlot.count -= amount;
+                    if (itemInSlot.count <= 0)
+                    {
+                        Destroy(itemInSlot.gameObject);
+                    }
+                    else
+                    {
+                        itemInSlot.RefreshCount();
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    
 }

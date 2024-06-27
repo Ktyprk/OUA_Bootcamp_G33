@@ -9,10 +9,10 @@ public class DemoScript : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PickupItem(0);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     PickupItem(0);
+        // }
         
         if (Input.GetKeyDown(KeyCode.Return))
         {

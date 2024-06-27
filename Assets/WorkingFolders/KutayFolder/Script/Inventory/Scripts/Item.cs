@@ -14,8 +14,13 @@ public class Item : ScriptableObject
     public int itemArmor;
     public ItemType itemType;
     
-    public bool stackable = true;
+    public bool stackable, isuseable, isequippable;
     public int maxStackSize = 4;
+    
+    private string itemUseText = "Use";
+    private string itemEquipText = "Equip";
+    
+    public GameObject itemPrefab;
     
     public enum ItemType
     {

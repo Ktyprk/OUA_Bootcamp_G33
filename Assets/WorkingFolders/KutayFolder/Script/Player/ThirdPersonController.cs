@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, look, interact, inventory;
+    private InputAction move, sprint, look, interact, inventory;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -16,16 +16,32 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private CinemachineFreeLook freeLookCamera;
 
     private ISearchable iSearchable;
-    private ICollectible iCollectible;
+    private IItemCollectible iCollectible;
     private IItemAvailability iItemAvailability;
+    private CharacterController _controller;
+    
+    private float _speed;
+    private float _targetRotation = 0.0f;
+    private float _rotationVelocity;
+    public float MoveSpeed = 2.0f;
+    public float SprintSpeed = 5.335f;
+    public float SpeedChangeRate = 10.0f;
+    
+    public bool isSprinting = false;
 
     private void Awake()
     {
         playerActionAsset = new ThirdPersonActionAsset();
         move = playerActionAsset.Player.Move;
+        sprint = playerActionAsset.Player.Sprint;
         look = playerActionAsset.Player.Look;
         interact = playerActionAsset.Player.Interact;
         inventory = playerActionAsset.Player.Inventory;
+    }
+
+    private void Start()
+    {
+        _controller = GetComponent<CharacterController>();
     }
 
     private void OnEnable()
@@ -35,6 +51,8 @@ public class ThirdPersonController : MonoBehaviour
         look.canceled += Look;
         interact.performed += Interact;
         inventory.performed += Inventory;
+        sprint.performed += Sprint;
+        sprint.canceled += Sprint;
     }
 
     private void OnDisable()
@@ -44,28 +62,72 @@ public class ThirdPersonController : MonoBehaviour
         look.canceled -= Look;
         interact.performed -= Interact;
         inventory.performed -= Inventory;
+        sprint.performed -= Sprint;
+        sprint.canceled -= Sprint;
     }
-
+    
     private void Update()
     {
+        Move();
+        LookAt(move.ReadValue<Vector2>());
+    }
+    
+    private void Sprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isSprinting = true;
+        }
+        else if (context.canceled)
+        {
+            isSprinting = false;
+        }
+    }
+
+    [SerializeField] private float gravity = 9.81f; // Adjust gravity value as needed
+
+    private void Move()
+    {
         Vector2 input = move.ReadValue<Vector2>();
-        
-        LookAt(input);
 
-        Vector3 forward = freeLookCamera.transform.forward;
-        Vector3 right = freeLookCamera.transform.right;
+        // Determine speed based on input and sprinting state
+        float targetSpeed = isSprinting ? SprintSpeed : MoveSpeed;
 
+        // Adjust target speed based on input
+        if (input == Vector2.zero && !isSprinting)
+        {
+            targetSpeed = 0.0f;
+        }
+        else if (input != Vector2.zero && !isSprinting)
+        {
+            targetSpeed = MoveSpeed;
+        }
+
+        // Calculate move direction based on camera forward and right vectors
+        Vector3 forward = playerCamera.transform.forward;
+        Vector3 right = playerCamera.transform.right;
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
         right.Normalize();
-    
+
         Vector3 moveDirection = forward * input.y + right * input.x;
         moveDirection.Normalize();
-        
-        transform.Translate(moveDirection * maxSpeed * Time.deltaTime, Space.World);
-        
+
+        // Apply gravity if not grounded
+        if (!_controller.isGrounded)
+        {
+            moveDirection += Vector3.down * gravity;
+        }
+
+        // Smoothly adjust speed
+        _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
+
+        // Move the character
+        _controller.Move(moveDirection * _speed * Time.deltaTime);
     }
+
+
 
     private void LookAt(Vector2 input)
     {
@@ -80,8 +142,7 @@ public class ThirdPersonController : MonoBehaviour
             right.Normalize();
 
             Vector3 direction = input.x * right + input.y * forward;
-
-            // Calculate the rotation towards the movement direction
+            
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
@@ -101,9 +162,43 @@ public class ThirdPersonController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext context)
     {
-        iSearchable?.Search();
-        iCollectible?.Collect();
-        iItemAvailability?.UseItem();
+        if (iSearchable != null)
+        {
+            try
+            {
+                iSearchable.Search();
+            }
+            catch (MissingReferenceException ex)
+            {
+                iSearchable = null;
+            }
+        }
+
+        if (iCollectible != null)
+        {
+            try
+            {
+                iCollectible.Collect();
+                iCollectible = null;
+            }
+            catch (MissingReferenceException ex)
+            {
+                iCollectible = null;
+            }
+        }
+
+        if (iItemAvailability != null)
+        {
+            try
+            {
+                iItemAvailability.UseItem();
+                iItemAvailability = null;
+            }
+            catch (MissingReferenceException ex)
+            {
+                iItemAvailability = null;
+            }
+        }
     }
     
     private void Inventory(InputAction.CallbackContext context)
@@ -118,9 +213,9 @@ public class ThirdPersonController : MonoBehaviour
             iSearchable = other.GetComponent<ISearchable>();
         }
         
-        if (other.GetComponent<ICollectible>() != null)
+        if (other.GetComponent<IItemCollectible>() != null)
         {
-            iCollectible = other.GetComponent<ICollectible>();
+            iCollectible = other.GetComponent<IItemCollectible>();
         }
           
         if (other.GetComponent<IItemAvailability>() != null)
@@ -131,17 +226,17 @@ public class ThirdPersonController : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<ISearchable>() == iSearchable)
+        if (other.GetComponent<ISearchable>() != null && other.GetComponent<ISearchable>() == iSearchable)
         {
             iSearchable = null;
         }
         
-        if (other.GetComponent<ICollectible>() == iCollectible)
+        if (other.GetComponent<IItemCollectible>() != null && other.GetComponent<IItemCollectible>() == iCollectible)
         {
             iCollectible = null;
         }
         
-        if (other.GetComponent<IItemAvailability>() == iItemAvailability)
+        if (other.GetComponent<IItemAvailability>() != null && other.GetComponent<IItemAvailability>() == iItemAvailability)
         {
             iItemAvailability = null;
         }
