@@ -14,8 +14,14 @@ public class ItemScript : MonoBehaviour, IItemCollectible
     public void PickupItem()
     {
         Item item = (Item)itemsc;
-        bool result = InventoryManager.instance.AddItem(item);
+        bool result = InventoryManager.instance.AddItem(item, this);
         Destroy(gameObject);
+        
+    }
+    
+    public virtual void InteractItem()
+    {
+        Debug.Log("Interacting with item");
     }
 
 }

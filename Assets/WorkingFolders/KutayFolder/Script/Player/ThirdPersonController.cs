@@ -19,6 +19,7 @@ public class ThirdPersonController : MonoBehaviour
     private IItemCollectible iCollectible;
     private IItemAvailability iItemAvailability;
     private CharacterController _controller;
+    private VehicleController _Vcontroller;
     
     private float _speed;
     private float _targetRotation = 0.0f;
@@ -89,11 +90,9 @@ public class ThirdPersonController : MonoBehaviour
     private void Move()
     {
         Vector2 input = move.ReadValue<Vector2>();
-
-        // Determine speed based on input and sprinting state
+        
         float targetSpeed = isSprinting ? SprintSpeed : MoveSpeed;
-
-        // Adjust target speed based on input
+        
         if (input == Vector2.zero && !isSprinting)
         {
             targetSpeed = 0.0f;
@@ -102,8 +101,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             targetSpeed = MoveSpeed;
         }
-
-        // Calculate move direction based on camera forward and right vectors
+        
         Vector3 forward = playerCamera.transform.forward;
         Vector3 right = playerCamera.transform.right;
         forward.y = 0f;
@@ -113,17 +111,14 @@ public class ThirdPersonController : MonoBehaviour
 
         Vector3 moveDirection = forward * input.y + right * input.x;
         moveDirection.Normalize();
-
-        // Apply gravity if not grounded
+        
         if (!_controller.isGrounded)
         {
             moveDirection += Vector3.down * gravity;
         }
-
-        // Smoothly adjust speed
+        
         _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
-
-        // Move the character
+        
         _controller.Move(moveDirection * _speed * Time.deltaTime);
     }
 
@@ -162,43 +157,12 @@ public class ThirdPersonController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext context)
     {
-        if (iSearchable != null)
-        {
-            try
-            {
-                iSearchable.Search();
-            }
-            catch (MissingReferenceException ex)
-            {
-                iSearchable = null;
-            }
-        }
-
-        if (iCollectible != null)
-        {
-            try
-            {
-                iCollectible.Collect();
-                iCollectible = null;
-            }
-            catch (MissingReferenceException ex)
-            {
-                iCollectible = null;
-            }
-        }
-
-        if (iItemAvailability != null)
-        {
-            try
-            {
-                iItemAvailability.UseItem();
-                iItemAvailability = null;
-            }
-            catch (MissingReferenceException ex)
-            {
-                iItemAvailability = null;
-            }
-        }
+        
+        iCollectible?.Collect();
+        iCollectible = null;
+        iSearchable?.Search();
+        iItemAvailability?.UseItem();
+        
     }
     
     private void Inventory(InputAction.CallbackContext context)
