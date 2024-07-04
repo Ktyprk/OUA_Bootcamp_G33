@@ -115,7 +115,7 @@ public class InventoryManager : MonoBehaviour
 
     }
     
-    public bool AddItem(Item item)
+    public bool AddItem(Item item, ItemScript itemScript)
     {
         for (int i = 0; i <inventorySlots.Length; i++)
         {
@@ -135,7 +135,7 @@ public class InventoryManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot);
+                SpawnNewItem(item, slot, itemScript);
                 return true;
             }
         }
@@ -143,11 +143,11 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
     
-    private void SpawnNewItem(Item item, InventorySlot slot)
+    private void SpawnNewItem(Item item, InventorySlot slot, ItemScript itemScript)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitializeItem(item);
+        inventoryItem.InitializeItem(item, itemScript);
     }
     
     public Item GetSelectedItem()
@@ -182,6 +182,7 @@ public class InventoryManager : MonoBehaviour
             if (itemId == itemid && use)
             {  
                 itemInSlot.count--;
+                itemInSlot.itemScript.InteractItem();
                 if (itemInSlot.count == 0)
                 {
                     Destroy(itemInSlot.gameObject);

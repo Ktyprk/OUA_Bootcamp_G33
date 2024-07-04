@@ -14,10 +14,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [HideInInspector] public int count = 1;
      public Transform parentBeforeDrag, parentAfterDrag;
    
-    //private 
+    public ItemScript itemScript;
    
-    public void InitializeItem(Item newItem)
+    public void InitializeItem(Item newItem, ItemScript itemScript)
     {
+        this.itemScript = itemScript;
         item = newItem;
         image.sprite = newItem.itemIcon;
         RefreshCount();

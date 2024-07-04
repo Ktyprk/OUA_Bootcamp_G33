@@ -48,6 +48,7 @@ public class InventoryInfoPanel : MonoBehaviour
         if(selectedItem.isuseable)
         {
             actionButtonText.text = "Use";
+            
         }
         else if(selectedItem.isequippable)
         {
@@ -55,7 +56,12 @@ public class InventoryInfoPanel : MonoBehaviour
         }
     }
     
+    
     public void OnActionButtonClick()
+    {
+            InventoryManager.instance.UseSelectedItem(selectedItem.itemID, true);
+    }
+    public void OnDropButtonClick()
     {
             Item item = selectedItem;
             Instantiate(item.itemPrefab, player.transform.position, Quaternion.identity);

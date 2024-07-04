@@ -141,7 +141,7 @@ public class SearchableObjects : MonoBehaviour, ISearchable
         if (lootController == null) return;
 
         Item item = lootController.item;
-        bool result = InventoryManager.instance.AddItem(item);
+        bool result = InventoryManager.instance.AddItem(item, item.itemPrefab.GetComponent<ItemScript>());
         if (result)
         {
             items.Remove(item);

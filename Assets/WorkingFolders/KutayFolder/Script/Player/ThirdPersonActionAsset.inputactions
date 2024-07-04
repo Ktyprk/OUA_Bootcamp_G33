@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Vehicle",
+                    "type": "Button",
+                    "id": "c1b157fe-909b-4157-999f-e12d8d473c40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "Button",
                     "id": "5eff167d-058c-471f-8524-2065274d147c",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ccbba991-9ef9-4939-8dfb-3fd5f9bf08de",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Vehicle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
