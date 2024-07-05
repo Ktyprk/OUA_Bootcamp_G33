@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, sprint, look, interact, inventory;
+    private InputAction move, aim, fire, sprint, look, interact, inventory;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -29,6 +29,7 @@ public class ThirdPersonController : MonoBehaviour
     public float SpeedChangeRate = 10.0f;
     
     public bool isSprinting = false;
+    private bool isAim = false;
 
     private void Awake()
     {
@@ -38,6 +39,8 @@ public class ThirdPersonController : MonoBehaviour
         look = playerActionAsset.Player.Look;
         interact = playerActionAsset.Player.Interact;
         inventory = playerActionAsset.Player.Inventory;
+        aim = playerActionAsset.Player.Aim;
+        fire = playerActionAsset.Player.Fire;
     }
 
     private void Start()
@@ -54,6 +57,9 @@ public class ThirdPersonController : MonoBehaviour
         inventory.performed += Inventory;
         sprint.performed += Sprint;
         sprint.canceled += Sprint;
+        aim.performed += Aim;
+        aim.canceled += StopAiming;
+        fire.performed += Fire;
     }
 
     private void OnDisable()
@@ -65,12 +71,38 @@ public class ThirdPersonController : MonoBehaviour
         inventory.performed -= Inventory;
         sprint.performed -= Sprint;
         sprint.canceled -= Sprint;
+        aim.performed -= Aim;
+        aim.canceled -= StopAiming;
+        fire.performed -= Fire;
     }
     
+    [SerializeField] private GameObject projectilePrefab; 
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float projectileSpeed = 10f;
+
+    private void Fire(InputAction.CallbackContext obj)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+
+        rb.velocity = firePoint.forward * projectileSpeed;
+    }
+
     private void Update()
     {
         Move();
-        LookAt(move.ReadValue<Vector2>());
+        if (!isAim)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+             LookAt(move.ReadValue<Vector2>());
+        }else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            LookAtMouse();
+        }
     }
     
     private void Sprint(InputAction.CallbackContext context)
@@ -85,7 +117,7 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
-    [SerializeField] private float gravity = 9.81f; // Adjust gravity value as needed
+    [SerializeField] private float gravity = 9.81f;
 
     private void Move()
     {
@@ -142,19 +174,50 @@ public class ThirdPersonController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
+    
+    private void LookAtMouse()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = playerCamera.ScreenPointToRay(mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 direction = (hit.point - transform.position).normalized;
+            direction.y = 0; 
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
 
     private void Look(InputAction.CallbackContext context)
     {
-        // if (context.performed)
-        // {
-        //     freeLookCamera.m_XAxis.m_MaxSpeed = 300f;
-        // }
-        // else if (context.canceled)
-        // {
-        //     freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
-        // }
+        if (context.performed)
+        {
+            freeLookCamera.m_XAxis.m_MaxSpeed = 300f;
+        }
+        else if (context.canceled)
+        {
+            freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
+        }
     }
     
+    private void Aim(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isAim = true;
+        }
+    }
+
+    private void StopAiming(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            isAim = false;
+            
+        }
+    }
     private void Interact(InputAction.CallbackContext context)
     {
         

@@ -89,6 +89,15 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""452bc606-c970-4707-bbc9-c161e42b545a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,7 +170,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                 {
                     ""name"": """",
                     ""id"": ""93d073f1-9eff-4105-ba94-7efa76524a08"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -210,6 +219,17 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Vehicle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""618eec71-6238-42d4-a9bb-82721131f46a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -868,6 +888,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Vehicle = m_Player.FindAction("Vehicle", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -949,6 +970,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Vehicle;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_Aim;
     public struct PlayerActions
     {
         private @ThirdPersonActionAsset m_Wrapper;
@@ -960,6 +982,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Vehicle => m_Wrapper.m_Player_Vehicle;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -990,6 +1013,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1015,6 +1041,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1212,6 +1241,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         void OnInventory(InputAction.CallbackContext context);
         void OnVehicle(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
