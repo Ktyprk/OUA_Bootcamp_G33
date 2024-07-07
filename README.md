@@ -1,6 +1,3 @@
-
-Original file line number	Original file line	Diff line number	Diff line change
-@@ -0,0 +1,70 @@
 Oyunun İsmi         
 Lost Trails: City's Secret       
 
