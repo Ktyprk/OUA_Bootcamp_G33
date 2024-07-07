@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sahneler/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/karakol/karakol2.kat.unity
+    guid: c18e200ca93d41b4eb0adaa5a6905f7d
+  - enabled: 1
+    path: Assets/Scenes/karakol/karakol1.kat.unity
+    guid: 2b38670582cd29844a166d8d6187a2f0
   m_configObjects: {}
