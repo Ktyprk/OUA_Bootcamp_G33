@@ -263,6 +263,9 @@ MonoBehaviour:
   SprintSpeed: 5.335
   SpeedChangeRate: 10
   isSprinting: 0
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  projectileSpeed: 10
   gravity: 9.81
 --- !u!143 &14943391
 CharacterController:
@@ -36520,8 +36523,8 @@ SceneRoots:
   - {fileID: 8601886774429420028}
   - {fileID: 14943387}
   - {fileID: 2118661949}
+  - {fileID: 1673629707}
   - {fileID: 1613870929}
   - {fileID: 1859973715}
-  - {fileID: 1673629707}
   - {fileID: 1444403297}
   - {fileID: 1268576657}

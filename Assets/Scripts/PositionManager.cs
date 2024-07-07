@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PositionManager : MonoBehaviour
@@ -6,18 +7,20 @@ public class PositionManager : MonoBehaviour
     public GameObject firstFloorLeft;
     public GameObject secondFloorRight;
     public GameObject secondFloorLeft;
+    
+    private GameObject player;
+
+    private void Awake()
+    { 
+        player = GameObject.FindWithTag("Player");
+        DontDestroyOnLoad(player);
+    }
 
     private void Start()
     {
 
         string targetPosition = PlayerPrefs.GetString("TargetPosition", "");
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player objesi bulunamadý. Lütfen sahnede 'Player' tagli bir obje olduðundan emin olun.");
-            return;
-        }
+        
 
         Debug.Log("Target Position: " + targetPosition);
 
@@ -39,10 +42,12 @@ public class PositionManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Geçiþ noktasý bulunamadý veya geçersiz. Lütfen geçiþ noktalarýnýn doðru atandýðýndan emin olun.");
+            Debug.LogWarning("GeÃ§iÅŸ noktasÄ± bulunamadÄ± veya geÃ§ersiz. LÃ¼tfen geÃ§iÅŸ noktalarÄ±nÄ±n doÄŸru atandÄ±ÄŸÄ±ndan emin olun.");
         }
-
         
-
     }
+    
+    
+    
+    
 }
