@@ -1,65 +1,94 @@
-Oyunun İsmi         
+<h3> Oyunun İsmi </h3>         
 Lost Trails: City's Secret       
 
-Grup Üyeleri            
-Kutay Perk - Game Developer                    
-Kader Sönmez - Project Manager,  Narrative Designer                                           
-Kuray Tunç - Game Developer                         
-İrem Fındık - Narrative Designer                     
-Kerem Kütük - Level Designer                                        
+
+<h3>Grup Üyeleri</h3>    
+
+Kutay Perk - Game Developer,Game Designer                                                                                                     
+Kader Sönmez - Project Manager,  Narrative Designer,Game Developer,Game Designer                                                                                                                                 
+Kuray Tunç - Game Developer,Game Designer                                                                                                        
+İrem Fındık - Narrative Designer,Game Developer,Game Designer                                          
+Kerem Kütük - Level Designer,Game Developer,Game Designer                                                         
 
 
-Roller        
-İrem ,Kader ----Oyunun hikayenin ,mekanik ve diyalog  belirlenmesi         
-Kader----- Project ,Scrum      
-Kerem---- Level design,Animation     
-Kutay---- Envanter sistemi, karakter kontrol, loot sistemi,kamera sistemi       
-Kuray----Kamera sistemi,outline sistemi,dialogue sistemi        
+<h3> Roller </h3>  
 
-Oyunun Konusu
-Baş kahramanımız olan Dedektif Austin’in başına korkunç bir olay gelir .Dedektif olarak ipuçlarını bulmalı ve bu gizemi çözmeliyiz.Bulacağımız ipuçları bizi gerçeğe yaklaştıracak ve geçmişimizle yüzleşeceğiz.       
+İrem ,Kader ----Oyunun hikayenin ,mekanik ve diyalog  belirlenmesi                                                                                                                                                  
+Kader----- Project management,Scrum                                                                                                                                                
+Kerem,İrem---- Level design,Animation,Asset Design                                                                                                                                           
+Kutay---- Envanter sistemi, karakter kontrol, loot sistemi,kamera sistemi                                                                                                                                           
+Kuray----Kamera sistemi,outline sistemi,dialogue sistemi,Music                                                    
 
-Oyun Özellikleri
-Grafik: 3D, Realistic
-Genre: Single Player, RPG   
 
-Uyumlu Platformlar:
-PC, PS
+<h3>Ürün İle İlgili Bilgiler </h3>    
 
-Hedef Kitle 
+<h3> Oyunun Konusu </h3> 
+Baş kahramanımız olan Dedektif Austin’in başına korkunç bir olay gelir .Dedektif olarak ipuçlarını bulmalı ve bu gizemi çözmeliyiz.Bulacağımız ipuçları bizi gerçeğe yaklaştıracak ve geçmişimizle yüzleşeceğiz.  
+
+<h3>Oyunun Açıklaması </h3>
+Oyuncu gizemin ipuçlarını sadece oyunun yönlendirmesi ile değil seçeceği seçenekler ile de bulmaktadır. Oyuncu oyuna dahil edilip kendi kararları ile gizemi çözmeye çalışmaktadır.  
+
+<h3>Oyun Özellikleri </h3> 
+Grafik: 3D, Realistic    
+Tür:Single Player, RPG                               
+
+<h3>Uyumlu Platformlar</h3>
+
+PC                                                                                               
+PS                                                                                                                    
+
+<h3>Hedef Kitle </h3>
 Yaş: 15 - 25
-İlgi Alanları: İpucu aramak ve araştırma yapmayı seven, gizem türüne ilgi duyanlar.
+İpucu aramayı seven   
+Araştırma yapmayı seven  
+Gizem türüne ilgi duyanlar
+Aksiyon ve derinlik sevenler  
 
-Product Backlog    
+<h3>Game Backlog URL </h3>   
+
 Sprint Board Screenshot (Asana)
-https://app.asana.com/0/1207618782377541/1207618682856699           
+
+https://app.asana.com/0/1207618782377541/1207618682856699    
+
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/81100263/d065a762-83c2-4fb5-9bdd-765ac160e36a)
 
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/ef8a7735-a0ef-4882-9edc-c0feefc61af1)
+ 
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/525e941d-0ee3-482a-a67d-b7ea87bd923b)
 
-Ekibimizin Toplantı Zamanları ve Saatleri                     
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/c8aeb8c5-c7cc-4ff9-9d93-8878e7f004a1)
+
+
+<h1> Sprint 1 (100P)</h1>  
+
+Tüm Sprint süreci(Sprint'in tanımlanması,toplantıları,Retrospective ve Review ) 100 puana dağıtılmıştır.                                             
+
+Daily Scrum : Konuşmalar Whatsapp ve Discord üzerinden yapılmıştır.Toplantılar Discord üzerinden yapılmıştır. (5P)
+
+Ekibimizin Toplantı Zamanları ve Saatleri (5P)
+
 Toplantılar Bootcamp’in  ilk haftasında haftada 3 veya 4 kez bir araya gelecek şekilde yapılmıştır. Toplantı saati 22:00-24:00 olarak belirlenmiştir.    
 Ekip uyelerinin birlikte çalışmasını gerektiren durumlarda 21.00 e kadar günlük işler bitirilir ve 22.00 de tüm ekip ile toplantı başlar.
 Grubun kurulma tarihi bootcamp’in başlangıç tarihinde 14 Haziran tarihinde olmuştur.          
 Discord kanalının oluşturulması ve eklenmesi 14 Haziran   
+
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/81100263/6a03bc63-a17c-44d1-9cb6-5b8360cdf3c9)
 
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/4572faaf-2f60-41ab-bdb0-432fd7272dec)
 
-        
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/56ac5b9d-5a72-489d-ad8e-ff6a5c0e6f92)
 
-Sprint 1   
+<h1> Sprint Notları (30P) </h1>  
 
-Daily Scrum : Konuşmalar Whatsapp ve Discord üzerinden yapılmıştır.Toplantılar Discord üzerinden yapılmıştır.  
-
-Sprint 1 board :
--Oyunun teması ve hikayesi verilmesi
--Görev dağılımı ve proje yönetim planı oluşturulması
--Temel mekaniklerin tasarlanmasıü
--Story board tasarlanması
--Oynun haritası tasarlanması 
--İç mekan tasarımı
--Haftalık toplantıların düzenlenmesi ve katılımının sağlanması
--Karakterlerin tasarımı ve mekaniği
--Diyalogların yazılmaya başlanması
+  -Oyunun teması ve hikayesi verilmesi (5P)  
+  -Görev dağılımı ve proje yönetim planı oluşturulması (5P)  
+  -Temel mekaniklerin tasarlanması (4P)   
+  -Story board tasarlanması (3P) 
+  -Oynun haritası tasarlanması (4P)   
+  -İç mekan tasarımı (3P)  
+  -Haftalık toplantıların düzenlenmesi ve katılımının sağlanması (2P)    
+  -Karakterlerin tasarımı ve mekaniği(2P)    
+  -Diyalogların yazılmaya başlanması(2P)  
 
 
 
@@ -68,3 +97,27 @@ Sprint 1 board :
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/81100263/7c470854-55fd-4eec-b9b0-bb443c5d9979)
 
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/81100263/926d4cbe-e76a-41ad-8b5f-9f76ba7407a9)
+
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/26d2e9f1-25fd-4539-bd0f-4c6a107f4b53)
+
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/fa59295b-dfa9-4286-a9aa-d6ebd7d6a514)
+
+
+<h3>Sprint Review:(30P) </h3>
+
+Alınan kararlar: Dailies toplantılarına katılımın saatinin belli olması,Asana üzerinden görev takiplerinin yapılması konuşuldu.(6P)
+                 Asana üzerinden tamamlanan görevler tiklenerek toplantılarda yeni görevlerin eklenmesi sağlandı.(6P)
+                 Oyunun hikayesi hakkında tüm ekip arkadaşlarımızla beraber bir araya gelindi ve hikayedeki değişikliklerin üzerinden geçildi.(6P)
+                 Diyalog sistemi üzerine daha detay yapılmasına karar verildi.(6P)
+                 Karakter tasarımı ve harita sisteminde geliştirmeler üzerinde çalışmaya devam ediliyor.(6P)
+
+<h3>Sprint Retrospective: (30P) </h3>
+
+Roller ile ilgili düzenleme yapılması sağlandı, scrum master olarak Kader belirlendi.(8P)
+Grup içindeki görev dağılımıyla ilgili düzenleme yapılması kararı alınmıştır. Konu ile ilgili haftalık toplantılarda Asana üzerinden yapılan ve yapılmayan görevler netleştirildi.(8P)
+Grup üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılmıştır.(7P)
+Watsapp, Discord ve Asana üzerinden haberleşme sağlanarak görevler üzerinde eksik kalmaması sağlandı.(7P)
+
+![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/a5adc513-78c2-47d6-9d00-b8a471a027cf)
+
+
