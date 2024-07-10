@@ -76,7 +76,7 @@ Discord kanalının oluşturulması ve eklenmesi 14 Haziran
 
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/56ac5b9d-5a72-489d-ad8e-ff6a5c0e6f92)
 
-<h1> <u> Puan Tamamlama Mantığı (30P) </u> </h1>  
+<h1> Puan Tamamlama Mantığı (30P) </h1>  
 
 Tüm Sprint süreci(Sprint'in tanımlanması,toplantıları,Retrospective ve Review ) 100 puana dağıtılmıştır.  
 
@@ -120,4 +120,8 @@ Watsapp, Discord ve Asana üzerinden haberleşme sağlanarak görevler üzerinde
 
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/a5adc513-78c2-47d6-9d00-b8a471a027cf)
 
+
+<h3>Sprint Notları </h3>
+
+Ekip ile beraber görev dağılımı yapıldı.Herkesin bilgilerinin üzerinden geçerek kimler hangi görevleri daha iyi yapabilir ya da hangilerini yapmak isteyebilir bu konuda yapılan ilk toplantıda notlar alındı. Görev dağılımı bitiminde oyunun üzerinden geçildi ve herkes kafasındaki konu hakkında bir şeyler oluşturmaya başladı önce konuyu netleştirdik ardından herkese belli süre vererek belirlenen konu hakkında bir metin veya hikaye yazılmasını istedik. Bir sonraki toplantıya kadar kararlaştırılan bu karar herkesin ortak bir fikirde buluşmasını sağlamaktı.Bir sonraki dailies toplantımızda herkes yazdığı hikayeyi paylaştı ve en sevilen ya da en çok ilerleyebileceğimiz konu üzerinden ilerlemeye karar verildi. İlerleyeceğimiz oyun hakkında herkesin fikrini aldık,eklemeler olması durumunu konuştuk.Diyaloglar konusunda daha net olmamıza karar verdik.Scrum master'ı seçtik .Scrum master konusunda daha net olmak  için herkesin fikri alındı. Gruptaki proje yöneticisi/scrum master katıldığı toplantılar hakkında bizi bilgilendirdi.Slack grubunda önemli duyurular yapılmışsa bunları hızlıca watsapp grubumuzda paylaştık ve discord'ta bir araya gelerek tartıştık.Sprint 1 için düşündüklerimiz genel olarak oyunun gidişatının nasıl olacağı,görev tanımlarımızın nasıl olacağı,nasıl haberleşeceğiz,toplantı notlarımızın tutulması ve kaydedilmesi.Toplantı günlerinin kararlaştırılması ve düzenli olarak katılım sağlanmak üzere takip edilmesi.Asana'da görev listesinin çıkarılması ve tamamlanan işler hakkında Asana'nın güncel olması.
 
