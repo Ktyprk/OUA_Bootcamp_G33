@@ -39,10 +39,9 @@ PS
 
 <h3>Hedef Kitle </h3>
 Yaş: 15 - 25                                                                                   
-İpucu aramayı seven                                                                           
-Araştırma yapmayı seven                                                                       
-Gizem türüne ilgi duyanlar                                                                
-Aksiyon ve derinlik sevenler                                                                      
+İpucu aramayı seven                                                                                                                                                                                                 
+Araştırma yapmayı seven                                                                                                                                                                                    
+Gizem türüne ilgi duyanlar                                                                                                                                                                                          Aksiyon ve derinlik sevenler                                                                      
 
 <h3>Game Backlog URL </h3>   
 
