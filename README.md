@@ -59,9 +59,7 @@ https://app.asana.com/0/1207618782377541/1207618682856699
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/c8aeb8c5-c7cc-4ff9-9d93-8878e7f004a1)
 
 
-<h1> Sprint 1 (100P)</h1>  
-
-Tüm Sprint süreci(Sprint'in tanımlanması,toplantıları,Retrospective ve Review ) 100 puana dağıtılmıştır.                                             
+<h1> Sprint 1 (100P)</h1>                                             
 
 Daily Scrum : Konuşmalar Whatsapp ve Discord üzerinden yapılmıştır.Toplantılar Discord üzerinden yapılmıştır. (5P)
 
@@ -78,7 +76,9 @@ Discord kanalının oluşturulması ve eklenmesi 14 Haziran
 
 ![image](https://github.com/Ktyprk/OUA_Bootcamp_G33/assets/96494067/56ac5b9d-5a72-489d-ad8e-ff6a5c0e6f92)
 
-<h1> Sprint Notları (30P) </h1>  
+<h1> <u> Puan Tamamlama Mantığı (30P) </u> </h1>  
+
+Tüm Sprint süreci(Sprint'in tanımlanması,toplantıları,Retrospective ve Review ) 100 puana dağıtılmıştır.  
 
   -Oyunun teması ve hikayesi verilmesi (5P)  
   -Görev dağılımı ve proje yönetim planı oluşturulması (5P)  
