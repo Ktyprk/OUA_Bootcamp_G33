@@ -16,7 +16,6 @@ public class ItemScript : MonoBehaviour, IItemCollectible
         Item item = (Item)itemsc;
         bool result = InventoryManager.instance.AddItem(item, this);
         Destroy(gameObject);
-        
     }
     
     public virtual void InteractItem()
@@ -24,6 +23,10 @@ public class ItemScript : MonoBehaviour, IItemCollectible
         Debug.Log("Interacting with item");
     }
 
+    public virtual void Fire()
+    {
+        Debug.Log("Firing item: " + itemsc.name);
+    }
 }
 
 public interface IItemCollectible 

@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, aim, fire, sprint, look, interact, inventory;
+    private InputAction move, aim, fire, sprint, look, interact, inventory, closeUi;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -30,6 +30,7 @@ public class ThirdPersonController : MonoBehaviour
     
     public bool isSprinting = false;
     private bool isAim = false;
+    private bool isUIopen = false;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class ThirdPersonController : MonoBehaviour
         inventory = playerActionAsset.Player.Inventory;
         aim = playerActionAsset.Player.Aim;
         fire = playerActionAsset.Player.Fire;
+        closeUi = playerActionAsset.Player.CloseButton;
     }
 
     private void Start()
@@ -60,6 +62,7 @@ public class ThirdPersonController : MonoBehaviour
         aim.performed += Aim;
         aim.canceled += StopAiming;
         fire.performed += Fire;
+        closeUi.performed += CloseInventory;
     }
 
     private void OnDisable()
@@ -76,32 +79,38 @@ public class ThirdPersonController : MonoBehaviour
         fire.performed -= Fire;
     }
     
-    [SerializeField] private GameObject projectilePrefab; 
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 10f;
-
     private void Fire(InputAction.CallbackContext obj)
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-
-        rb.velocity = firePoint.forward * projectileSpeed;
+        ItemScript equippedWeapon = InventoryManager.instance.GetEquippedWeapon();
+        if (equippedWeapon != null)
+        {
+            equippedWeapon.Fire();
+            
+        }
+        else
+        {
+            Debug.Log("No weapon equipped");
+        }
     }
 
     private void Update()
     {
         Move();
-        if (!isAim)
+        if (!isAim && !isUIopen)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-             LookAt(move.ReadValue<Vector2>());
-        }else
+            LookAt(move.ReadValue<Vector2>());
+        }
+        else if (isAim && !isUIopen)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             LookAtMouse();
+        }else if (isUIopen)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     
@@ -153,8 +162,6 @@ public class ThirdPersonController : MonoBehaviour
         
         _controller.Move(moveDirection * _speed * Time.deltaTime);
     }
-
-
 
     private void LookAt(Vector2 input)
     {
@@ -215,22 +222,27 @@ public class ThirdPersonController : MonoBehaviour
         if (context.canceled)
         {
             isAim = false;
-            
         }
     }
+
     private void Interact(InputAction.CallbackContext context)
     {
-        
         iCollectible?.Collect();
         iCollectible = null;
         iSearchable?.Search();
         iItemAvailability?.UseItem();
-        
     }
     
     private void Inventory(InputAction.CallbackContext context)
     {
+        isUIopen = !isUIopen;
         InventoryManager.instance.OpenInventory();
+    }
+    
+    private void CloseInventory(InputAction.CallbackContext context)
+    {
+        isUIopen = false;
+        InventoryManager.instance.CloseInventory();
     }
     
     private void OnTriggerEnter(Collider other)

@@ -98,6 +98,15 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""27d81a01-d56e-4b18-ba29-a521a2a95aef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -230,6 +239,17 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2fa97e3-a78f-43a0-b600-08379a582819"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CloseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -621,7 +641,18 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""298976af-fce0-4ea5-aedc-081609e3579e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -889,6 +920,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         m_Player_Vehicle = m_Player.FindAction("Vehicle", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_CloseButton = m_Player.FindAction("CloseButton", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -971,6 +1003,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_Vehicle;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_CloseButton;
     public struct PlayerActions
     {
         private @ThirdPersonActionAsset m_Wrapper;
@@ -983,6 +1016,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         public InputAction @Vehicle => m_Wrapper.m_Player_Vehicle;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @CloseButton => m_Wrapper.m_Player_CloseButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1016,6 +1050,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @CloseButton.started += instance.OnCloseButton;
+            @CloseButton.performed += instance.OnCloseButton;
+            @CloseButton.canceled += instance.OnCloseButton;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1044,6 +1081,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @CloseButton.started -= instance.OnCloseButton;
+            @CloseButton.performed -= instance.OnCloseButton;
+            @CloseButton.canceled -= instance.OnCloseButton;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1242,6 +1282,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         void OnVehicle(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnCloseButton(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

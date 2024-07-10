@@ -3,63 +3,77 @@ using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    
     public static InventoryManager instance;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public EquipSlotManager equipSlotManager;
     
     public ThirdPersonActionAsset playerActionAsset;
-    private InputAction UIinput;
+    private InputAction UIinput, UIcancel;
     private int selectedSlot = 0;
     private const int maxSlots = 28;
-    
+    private ItemScript equipedItemScript;
+
     public GameObject mainInventory;
+
+    private Item equippedWeapon;
+    private bool isInventoryOpen = false;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
         playerActionAsset = new ThirdPersonActionAsset();
         UIinput = playerActionAsset.UI.InGameNavigate;
-       
+        UIcancel = playerActionAsset.UI.Cancel;
     }
-    
+
     private void Start()
     {
         ChangeSelectedSlot(0);
     }
-    
+
     private void Update()
     {
-        if (Input.inputString != null)
+        for (int i = 1; i <= 5; i++)
         {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number > 0 && number <= 5)
+            if (Input.GetKeyDown(i.ToString()))
             {
-                ChangeSelectedSlot(number - 1);
+                ChangeSelectedSlot(i - 1);
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RemoveItem(0, 1);
         }
-        
     }
-    
+
     public void OpenInventory()
     {
-        if(mainInventory.activeSelf == true)
-        {
-            mainInventory.SetActive(false);
-        }
-        else
+        isInventoryOpen = !isInventoryOpen;
+        if(isInventoryOpen)
         {
             mainInventory.SetActive(true);
         }
+        else
+        {
+            mainInventory.SetActive(false);
+        }
     }
     
+    public void CloseInventory()
+    {
+        mainInventory.SetActive(false);
+    }
+
     private void OnEnable()
     {
         playerActionAsset.Enable();
@@ -79,45 +93,34 @@ public class InventoryManager : MonoBehaviour
         if (inputVector.x > 0)
         {
             ChangeSelectedSlot(selectedSlot + 1);
-            
         }
         else if (inputVector.x < 0)
         {
             ChangeSelectedSlot(selectedSlot - 1);
         }
-        
     }
 
     void ChangeSelectedSlot(int newSlot)
     {
-        if (inventorySlots != null && inventorySlots.Length > 0)
+        if (inventorySlots.Length > 0)
         {
-            if (selectedSlot >= 0)
+            if (selectedSlot >= 0 && selectedSlot < inventorySlots.Length)
             {
-                inventorySlots[selectedSlot].Deselect();
-            }
-            
-            if (newSlot >= maxSlots)
-            {
-                selectedSlot = 0;
-            }
-            else if (newSlot < 0)
-            {
-                selectedSlot = maxSlots - 1;
-            }
-            else
-            {
-                selectedSlot = newSlot;
+                inventorySlots[selectedSlot]?.Deselect();
             }
 
-            inventorySlots[selectedSlot].Select();
+            selectedSlot = (newSlot + maxSlots) % maxSlots;
+
+            if (selectedSlot >= 0 && selectedSlot < inventorySlots.Length)
+            {
+                inventorySlots[selectedSlot]?.Select();
+            }
         }
-
     }
-    
+
     public bool AddItem(Item item, ItemScript itemScript)
     {
-        for (int i = 0; i <inventorySlots.Length; i++)
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
@@ -128,59 +131,65 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-        
-        for (int i = 0; i <inventorySlots.Length; i++)
+
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot, itemScript);
+                if (item.itemPrefab != null)
+                {
+                    GameObject script = Instantiate(item.itemPrefab, slot.transform);
+                
+                    SpawnNewItem(item, slot, script.GetComponent<ItemScript>());
+                }
+                else
+                {
+                    SpawnNewItem(item, slot, null);
+                }
+               
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     private void SpawnNewItem(Item item, InventorySlot slot, ItemScript itemScript)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitializeItem(item, itemScript);
     }
-    
+
     public Item GetSelectedItem()
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-        if (itemInSlot != null)
-        {
-            int itemId = itemInSlot.item.itemID; 
-            Item item = itemInSlot.item;
-            
-            if (itemInSlot.count > 0)
-            {
-               Debug.Log(item);
-                
-            }
-            return itemInSlot.item;
-        }
-        return null;
+        return itemInSlot?.item;
     }
     
+    public ItemScript GetSelectedItemSlot()
+    {
+        InventorySlot slot = inventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        Debug.Log(itemInSlot.itemScript == null);
+        return itemInSlot.itemScript;
+    }
+
     public Item UseSelectedItem(int itemid, bool use)
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-    
+
         if (itemInSlot != null)
         {
-            int itemId = itemInSlot.item.itemID; 
+            int itemId = itemInSlot.item.itemID;
             Item item = itemInSlot.item;
-            
+
             if (itemId == itemid && use)
-            {  
+            {
                 itemInSlot.count--;
                 itemInSlot.itemScript.InteractItem();
                 if (itemInSlot.count == 0)
@@ -191,18 +200,12 @@ public class InventoryManager : MonoBehaviour
                 {
                     itemInSlot.RefreshCount();
                 }
-                return item; 
-            }
-            else
-            {
-                return null;
+                return item;
             }
         }
-    
-        return null; 
+        return null;
     }
 
-    
     public bool RemoveItem(int itemID, int amount)
     {
         for (int i = inventorySlots.Length - 1; i >= 0; i--)
@@ -230,5 +233,37 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+    public void UnequipItem(Item item)
+    {
+        if (item == equippedWeapon)
+        {
+            equipSlotManager.UnequipItem(EquipSlotManager.EquipType.Weapon);
+            equippedWeapon = null;
+            equipedItemScript = null;
+        }
+        else
+        {
+            Debug.LogWarning("Belirtilen eşya zaten takılı değil: " + item.itemName);
+        }
+    }
+
+    public void SetEquippedWeapon(Item item)
+    {
+        equippedWeapon = item;
+        equipSlotManager.EquipItem(item, GetSelectedItemSlot(), EquipSlotManager.EquipType.Weapon);
+       equipedItemScript = GetSelectedItemSlot();
+    }
+
+    public ItemScript GetEquippedWeapon()
+    {
+        return equipedItemScript;
+    }
+    
+    public bool IsItemEquipped(Item item)
+    {
+        return item == equippedWeapon;
+    }
+    
+   
     
 }

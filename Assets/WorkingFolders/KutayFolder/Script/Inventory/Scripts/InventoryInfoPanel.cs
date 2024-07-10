@@ -17,7 +17,6 @@ public class InventoryInfoPanel : MonoBehaviour
 
     void Update()
     {
-        // Only update the item info if the selected item has changed
         if (selectedItem != InventoryManager.instance.GetSelectedItem())
         {
             UpdateSelectedItem();
@@ -32,14 +31,15 @@ public class InventoryInfoPanel : MonoBehaviour
         {
             itemNameText.text = selectedItem.itemName;
             itemDescriptionText.text = selectedItem.itemDescription;
-            itemImage.sprite = selectedItem.itemIcon; // Assuming itemIcon is a sprite in the Item class
+            itemImage.sprite = selectedItem.itemIcon; 
             SetActionButton();
         }
         else
         {
-            itemNameText.text = "No item selected";
+            itemNameText.text = "Seçili öğe yok";
             itemDescriptionText.text = "";
-            itemImage.sprite = null; // Clear the image
+            itemImage.sprite = null; 
+            actionButtonText.text = "";
         }
     }
     
@@ -47,24 +47,77 @@ public class InventoryInfoPanel : MonoBehaviour
     {
         if(selectedItem.isuseable)
         {
-            actionButtonText.text = "Use";
-            
+            actionButtonText.text = "Kullan";
         }
         else if(selectedItem.isequippable)
         {
-            actionButtonText.text = "Equip";
+            if (IsItemEquipped(selectedItem))
+            {
+                actionButtonText.text = "Unequip";
+            }
+            else
+            {
+                actionButtonText.text = "Equip";
+            }
         }
     }
-    
+
+    private bool IsItemEquipped(Item item)
+    {
+        if (InventoryManager.instance.IsItemEquipped(item))
+        {
+            return true;
+        }
+        return false;
+    }
     
     public void OnActionButtonClick()
     {
-            InventoryManager.instance.UseSelectedItem(selectedItem.itemID, true);
+        if (selectedItem != null)
+        {
+            if(selectedItem.isuseable)
+            {
+                InventoryManager.instance.UseSelectedItem(selectedItem.itemID, true);
+            }
+            else if(selectedItem.isequippable)
+            {
+                ToggleEquipItem(selectedItem);
+            }
+        }
     }
+    
+    private void ToggleEquipItem(Item item)
+    {
+        if (IsItemEquipped(item))
+        {
+            UnequipItem(item);
+        }
+        else
+        {
+            EquipItem(item);
+        }
+    }
+    
+    private void EquipItem(Item item)
+    {
+        InventoryManager.instance.SetEquippedWeapon(item);
+        SetActionButton();
+    }
+    
+    private void UnequipItem(Item item)
+    {
+        InventoryManager.instance.UnequipItem(item);
+        SetActionButton(); 
+        itemImage.sprite = null; 
+    }
+    
     public void OnDropButtonClick()
     {
+        if (selectedItem != null)
+        {
             Item item = selectedItem;
             Instantiate(item.itemPrefab, player.transform.position, Quaternion.identity);
             InventoryManager.instance.RemoveItem(item.itemID, 1);
+        }
     }
 }

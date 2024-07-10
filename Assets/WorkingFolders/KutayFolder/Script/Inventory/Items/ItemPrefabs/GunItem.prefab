@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6404214208629748016}
   - component: {fileID: 588004993210128378}
   - component: {fileID: 5836444280856213304}
-  - component: {fileID: 5708664130180627485}
+  - component: {fileID: 4566126808249641772}
   m_Layer: 0
   m_Name: GunItem
   m_TagString: Untagged
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5708664130180627485
+--- !u!114 &4566126808249641772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4231041072441412772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4832247904fc1914f9b84ff48cac6fb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1483c610ecf3f924dbf03e999cf9df0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemsc: {fileID: 11400000, guid: a7004e3193a666f4fa4fbd2d9caacc4c, type: 2}
