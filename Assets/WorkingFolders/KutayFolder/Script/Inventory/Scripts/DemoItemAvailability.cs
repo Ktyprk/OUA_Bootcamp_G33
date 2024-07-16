@@ -4,19 +4,35 @@ using UnityEngine;
 
 public class DemoItemAvailability : MonoBehaviour, IItemAvailability
 {
-    public int usableitemid;
-    
-    public System.Action OnItemUsed;
+    [SerializeField] private int _usableItemId;
+    [SerializeField] private int _usableItemCount; 
 
+    public int usableItemId 
+    { 
+        get { return _usableItemId; } 
+        set { _usableItemId = value; } 
+    }
+
+    public int usableItemCount 
+    { 
+        get { return _usableItemCount; } 
+        set { _usableItemCount = value; } 
+    }
+
+    public GameObject itemUseInfoPrefab;
+    
     public void UseItem()
-    {
-        Item item = InventoryManager.instance.GetSelectedItem();
+    { 
+        InventoryManager.instance.RemoveItem(usableItemId, usableItemCount); 
+ 
+        // Item item = InventoryManager.instance.GetSelectedItem();
+        //
+        // if (item.itemID == usableitemid)
+        // {
+        //     InventoryManager.instance.UseSelectedItem(item.itemID, true);
+        //     OnItemUsed?.Invoke();
+        // }
         
-        if (item.itemID == usableitemid)
-        {
-            InventoryManager.instance.UseSelectedItem(item.itemID, true);
-            OnItemUsed?.Invoke();
-        }
     
         
     }

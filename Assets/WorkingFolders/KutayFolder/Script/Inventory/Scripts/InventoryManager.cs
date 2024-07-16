@@ -1,65 +1,104 @@
+using System;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    
     public static InventoryManager instance;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public EquipSlotManager equipSlotManager;
     
     public ThirdPersonActionAsset playerActionAsset;
     private InputAction UIinput;
     private int selectedSlot = 0;
-    private const int maxSlots = 28;
-    
+    private const int maxSlots = 24;
+    private ItemScript equipedItemScript;
+
     public GameObject mainInventory;
+    public GameObject itemTextNotificationPrefab;
+    public Transform itemTextNotTransform;
+
+    private Item equippedWeapon;
+    private bool isInventoryOpen = false;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
         playerActionAsset = new ThirdPersonActionAsset();
         UIinput = playerActionAsset.UI.InGameNavigate;
-       
+        
+        //LoadInventory();
+        if(SaveSystem.Instance.inventory != null)
+        {
+        
+        (int, int)[] inventory = SaveSystem.Instance.inventory;
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if (inventory[i].Item1 == -1)
+            {
+                continue;
+            }
+            for (int j = 0; j < inventory[i].Item2; j++)
+            {
+                ItemScript script = Instantiate(ItemDataBase.instance.GetItem(inventory[i].Item1).itemPrefab).GetComponent<ItemScript>();
+                AddItem(ItemDataBase.instance.GetItem(inventory[i].Item1), script, false);
+            }
+        }
+        }
     }
-    
+
     private void Start()
     {
         ChangeSelectedSlot(0);
     }
-    
+
     private void Update()
     {
-        if (Input.inputString != null)
-        {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number > 0 && number <= 5)
-            {
-                ChangeSelectedSlot(number - 1);
-            }
-        }
-        
+        // for (int i = 1; i <= 5; i++)
+        // {
+        //     if (Input.GetKeyDown(i.ToString()))
+        //     {
+        //         ChangeSelectedSlot(i - 1);
+        //     }
+        // }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RemoveItem(0, 1);
         }
-        
     }
-    
+
     public void OpenInventory()
     {
-        if(mainInventory.activeSelf == true)
+        isInventoryOpen = !isInventoryOpen;
+        if(isInventoryOpen)
         {
-            mainInventory.SetActive(false);
+            mainInventory.SetActive(true);
+            SelectFirstSlot();
         }
         else
         {
-            mainInventory.SetActive(true);
+            CloseInventory();
         }
     }
     
+    public void CloseInventory()
+    {
+        mainInventory.SetActive(false);
+        Save();
+    }
+
     private void OnEnable()
     {
         playerActionAsset.Enable();
@@ -76,113 +115,131 @@ public class InventoryManager : MonoBehaviour
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
 
-        if (inputVector.x > 0)
+        if (inputVector.x > 0 && inputVector.y == 0)
         {
             ChangeSelectedSlot(selectedSlot + 1);
-            
         }
-        else if (inputVector.x < 0)
+        else if (inputVector.x < 0  && inputVector.y == 0 )
         {
             ChangeSelectedSlot(selectedSlot - 1);
         }
-        
-    }
-
-    void ChangeSelectedSlot(int newSlot)
-    {
-        if (inventorySlots != null && inventorySlots.Length > 0)
-        {
-            if (selectedSlot >= 0)
-            {
-                inventorySlots[selectedSlot].Deselect();
-            }
-            
-            if (newSlot >= maxSlots)
-            {
-                selectedSlot = 0;
-            }
-            else if (newSlot < 0)
-            {
-                selectedSlot = maxSlots - 1;
-            }
-            else
-            {
-                selectedSlot = newSlot;
-            }
-
-            inventorySlots[selectedSlot].Select();
-        }
-
+    
+        // if (inputVector.y < 0 && selectedSlot + 8 < maxSlots) // Kontrol ekleniyor
+        // {
+        //     ChangeSelectedSlot(selectedSlot + 8);
+        // }
+        // else if (inputVector.y > 0 && selectedSlot - 8 >= 0) // Kontrol ekleniyor
+        // {
+        //     ChangeSelectedSlot(selectedSlot - 8);
+        // }
     }
     
-    public bool AddItem(Item item, ItemScript itemScript)
+    void SelectFirstSlot()
     {
-        for (int i = 0; i <inventorySlots.Length; i++)
+        if (inventorySlots.Length > 0)
+        {
+            inventorySlots[selectedSlot]?.Deselect();
+            selectedSlot = 0;
+            inventorySlots[selectedSlot]?.Select();
+        }
+    }
+    
+    void ChangeSelectedSlot(int newSlot)
+    {
+        if (inventorySlots.Length > 0)
+        {
+            if (selectedSlot >= 0 && selectedSlot < inventorySlots.Length)
+            {
+                inventorySlots[selectedSlot]?.Deselect();
+            }
+
+            selectedSlot = (newSlot + maxSlots) % maxSlots;
+
+            if (selectedSlot >= 0 && selectedSlot < inventorySlots.Length)
+            {
+                inventorySlots[selectedSlot]?.Select();
+            }
+        }
+    }
+
+    public bool AddItem(Item item, ItemScript itemScript, bool showNotification = true)
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null && itemInSlot.item == item && item.stackable && itemInSlot.count < item.maxStackSize)
             {
                 itemInSlot.count++;
+                if(showNotification)
+                  ShowItemTextNotification(itemInSlot.item.itemName + "collected");
                 itemInSlot.RefreshCount();
                 return true;
             }
         }
-        
-        for (int i = 0; i <inventorySlots.Length; i++)
+
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot, itemScript);
+                if (item.itemPrefab != null)
+                {
+                    GameObject script = Instantiate(item.itemPrefab, slot.transform);
+                
+                    SpawnNewItem(item, slot, script.GetComponent<ItemScript>());
+                }
+                else
+                {
+                    SpawnNewItem(item, slot, null);
+                }
+                if(showNotification)
+                   ShowItemTextNotification(item.itemName + " collected");
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     private void SpawnNewItem(Item item, InventorySlot slot, ItemScript itemScript)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitializeItem(item, itemScript);
     }
-    
+
     public Item GetSelectedItem()
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-        if (itemInSlot != null)
-        {
-            int itemId = itemInSlot.item.itemID; 
-            Item item = itemInSlot.item;
-            
-            if (itemInSlot.count > 0)
-            {
-               Debug.Log(item);
-                
-            }
-            return itemInSlot.item;
-        }
-        return null;
+        return itemInSlot?.item;
     }
     
+    public ItemScript GetSelectedItemSlot()
+    {
+        InventorySlot slot = inventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        Debug.Log(itemInSlot.itemScript == null);
+        return itemInSlot.itemScript;
+    }
+
     public Item UseSelectedItem(int itemid, bool use)
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-    
+
         if (itemInSlot != null)
         {
-            int itemId = itemInSlot.item.itemID; 
+            int itemId = itemInSlot.item.itemID;
             Item item = itemInSlot.item;
-            
+
             if (itemId == itemid && use)
-            {  
+            {
                 itemInSlot.count--;
                 itemInSlot.itemScript.InteractItem();
+                ShowItemTextNotification(itemInSlot.item.itemName + "used");
                 if (itemInSlot.count == 0)
                 {
                     Destroy(itemInSlot.gameObject);
@@ -191,30 +248,26 @@ public class InventoryManager : MonoBehaviour
                 {
                     itemInSlot.RefreshCount();
                 }
-                return item; 
-            }
-            else
-            {
-                return null;
+                return item;
             }
         }
-    
-        return null; 
+        return null;
     }
 
-    
     public bool RemoveItem(int itemID, int amount)
     {
         for (int i = inventorySlots.Length - 1; i >= 0; i--)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            
 
             if (itemInSlot != null && itemInSlot.item.itemID == itemID)
             {
                 if (itemInSlot.count >= amount)
                 {
                     itemInSlot.count -= amount;
+                    ShowItemTextNotification(itemInSlot.item.itemName + "used");
                     if (itemInSlot.count <= 0)
                     {
                         Destroy(itemInSlot.gameObject);
@@ -229,6 +282,76 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
+
+    public void UnequipItem(Item item)
+    {
+        if (item == equippedWeapon)
+        {
+            equipSlotManager.UnequipItem(EquipSlotManager.EquipType.Weapon);
+            equippedWeapon = null;
+            equipedItemScript = null;
+        }
+        else
+        {
+            Debug.LogWarning("Belirtilen eşya zaten takılı değil: " + item.itemName);
+        }
+    }
+
+    public void SetEquippedWeapon(Item item)
+    {
+        equippedWeapon = item;
+        equipSlotManager.EquipItem(item, GetSelectedItemSlot(), EquipSlotManager.EquipType.Weapon);
+       equipedItemScript = GetSelectedItemSlot();
+    }
+    
+    public void SetCustomEquippedWeapon(Item item, ItemScript itemScript)
+    {
+        equippedWeapon = item;
+        equipedItemScript = itemScript;
+    }
+
+    public ItemScript GetEquippedWeapon()
+    {
+        return equipedItemScript;
+    }
+    
+    public bool IsItemEquipped(Item item)
+    {
+        return item == equippedWeapon;
+    }
+    
+    private void Save()
+    {
+        (int, int)[] inventory = new (int, int)[maxSlots];
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if(inventorySlots[i] == null) return; 
+            
+            InventoryItem item = inventorySlots[i].GetComponentInChildren<InventoryItem>();
+            if(item == null)
+            {
+                inventory[i] = (-1, 0);
+            }
+            else
+            {
+                inventory[i] = (ItemDataBase.instance.GetItemIndex(item.item), item.count);
+            }
+        }
+    
+        SaveSystem.Instance.inventory = inventory;
+        SaveSystem.Save();
+    }
+    
+    public void ShowItemTextNotification(string text)
+    {
+        GameObject popup = Instantiate(itemTextNotificationPrefab, itemTextNotTransform);
+        
+        TMP_Text textComponent = popup.GetComponentInChildren<TMP_Text>();
+        textComponent.text = text;
+        
+        Destroy(popup, 2f);
+    }
+
 
     
 }

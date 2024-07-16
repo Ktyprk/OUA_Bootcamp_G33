@@ -24,7 +24,8 @@ public class DemoScript : MonoBehaviour
     {
         bool result = inventoryManager.AddItem(itemsToPickup[id], null);
     }
-    //
+    
+   
     // public void GetSelectedItem()
     // {
     //     Item recivedItem = inventoryManager.GetSelectedItem();

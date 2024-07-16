@@ -20,7 +20,8 @@ MonoBehaviour:
   itemDamage: 0
   itemArmor: 0
   itemType: 0
-  stackable: 0
+  stackable: 1
   isuseable: 1
   isequippable: 0
   maxStackSize: 0
+  itemPrefab: {fileID: 0}

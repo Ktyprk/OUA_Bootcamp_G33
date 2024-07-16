@@ -3,15 +3,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    private Animator _animator;
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, aim, fire, sprint, look, interact, inventory;
+    private InputAction move, aim, fire, sprint , look, interact, inventory, closeUi;
+    public bool isjump;
+    public bool issprint;
+    
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
     
+    public Image staminaBar;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private CinemachineFreeLook freeLookCamera;
 
@@ -19,7 +25,6 @@ public class ThirdPersonController : MonoBehaviour
     private IItemCollectible iCollectible;
     private IItemAvailability iItemAvailability;
     private CharacterController _controller;
-    private VehicleController _Vcontroller;
     
     private float _speed;
     private float _targetRotation = 0.0f;
@@ -28,24 +33,65 @@ public class ThirdPersonController : MonoBehaviour
     public float SprintSpeed = 5.335f;
     public float SpeedChangeRate = 10.0f;
     
-    public bool isSprinting = false;
     private bool isAim = false;
+    private bool isUIopen = false;
+    
+    [SerializeField] private float Gravity = -15.0f;
+    
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float sprintStaminaCost = 10f;
+    [SerializeField] private float jumpStaminaCost = 20f;
+    [SerializeField] private float staminaRecoveryRate = 8f;
+    
+    private bool isJumping = false;
+    
+    private float _verticalVelocity;
+    private float _terminalVelocity = 53.0f;
+    
+    public float JumpHeight = 1.2f;
+    public float JumpTimeout = 0.50f;
+    public float FallTimeout = 0.15f;
+    
+    public bool Grounded = true;
+    public float GroundedOffset = -0.14f;
+    public float GroundedRadius = 0.28f;
+    public LayerMask GroundLayers;
+    
+    private float _jumpTimeoutDelta;
+    private float _fallTimeoutDelta;
+    
+    // animation IDs
+    private float _animationBlend;
+    private int _animIDSpeed;
+    private int _animIDGrounded;
+    private int _animIDJump;
+    private int _animIDFreeFall;
+    private int _animIDMotionSpeed;
+    
+    private bool _hasAnimator;
 
     private void Awake()
     {
         playerActionAsset = new ThirdPersonActionAsset();
         move = playerActionAsset.Player.Move;
-        sprint = playerActionAsset.Player.Sprint;
         look = playerActionAsset.Player.Look;
         interact = playerActionAsset.Player.Interact;
         inventory = playerActionAsset.Player.Inventory;
         aim = playerActionAsset.Player.Aim;
         fire = playerActionAsset.Player.Fire;
+        closeUi = playerActionAsset.Player.CloseButton;
     }
 
     private void Start()
     {
+        _hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
+        
+        _jumpTimeoutDelta = JumpTimeout;
+        _fallTimeoutDelta = FallTimeout;
+        
+        AssignAnimationIDs();
     }
 
     private void OnEnable()
@@ -55,11 +101,10 @@ public class ThirdPersonController : MonoBehaviour
         look.canceled += Look;
         interact.performed += Interact;
         inventory.performed += Inventory;
-        sprint.performed += Sprint;
-        sprint.canceled += Sprint;
         aim.performed += Aim;
         aim.canceled += StopAiming;
         fire.performed += Fire;
+        closeUi.performed += CloseInventory;
     }
 
     private void OnDisable()
@@ -69,89 +114,199 @@ public class ThirdPersonController : MonoBehaviour
         look.canceled -= Look;
         interact.performed -= Interact;
         inventory.performed -= Inventory;
-        sprint.performed -= Sprint;
-        sprint.canceled -= Sprint;
         aim.performed -= Aim;
         aim.canceled -= StopAiming;
         fire.performed -= Fire;
+        
     }
     
-    [SerializeField] private GameObject projectilePrefab; 
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 10f;
+    public void OnJump(InputValue value)
+    {
+        JumpInput(value.isPressed);
+    }
 
+    public void OnSprint(InputValue value)
+    {
+        SprintInput(value.isPressed);
+    }
+    
+    public void JumpInput(bool newJumpState)
+    {
+        isjump = newJumpState;
+    }
+
+    public void SprintInput(bool newSprintState)
+    {
+        issprint = newSprintState;
+    }
+    
     private void Fire(InputAction.CallbackContext obj)
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-
-        rb.velocity = firePoint.forward * projectileSpeed;
+        ItemScript equippedWeapon = InventoryManager.instance.GetEquippedWeapon();
+        if (equippedWeapon != null)
+        {
+            equippedWeapon.Fire();
+            
+        }
+        else
+        {
+            
+        }
     }
 
     private void Update()
     {
+        //HandleStamina();/
+        JumpAndGravity();
+        GroundedCheck();
         Move();
-        if (!isAim)
+        if (!isAim && !isUIopen)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-             LookAt(move.ReadValue<Vector2>());
-        }else
+            LookAt(move.ReadValue<Vector2>());
+        }
+        else if (isAim && !isUIopen)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             LookAtMouse();
+        }else if (isUIopen)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     
-    private void Sprint(InputAction.CallbackContext context)
+    private void AssignAnimationIDs()
     {
-        if (context.performed)
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDGrounded = Animator.StringToHash("Grounded");
+        _animIDJump = Animator.StringToHash("Jump");
+        _animIDFreeFall = Animator.StringToHash("FreeFall");
+        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+    }
+    
+    private void JumpAndGravity()
         {
-            isSprinting = true;
+            if (Grounded)
+            {
+                _fallTimeoutDelta = FallTimeout;
+                
+                if (_verticalVelocity < 0.0f)
+                {
+                    _verticalVelocity = -2f;
+                }
+                
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDJump, false);
+                    _animator.SetBool(_animIDFreeFall, false);
+                }
+                
+                if (isjump && _jumpTimeoutDelta <= 0.0f)
+                {
+                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDJump, true);
+                    }
+                }
+                
+                if (_jumpTimeoutDelta >= 0.0f)
+                {
+                    _jumpTimeoutDelta -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                _jumpTimeoutDelta = JumpTimeout;
+                
+                if (_fallTimeoutDelta >= 0.0f)
+                {
+                    _fallTimeoutDelta -= Time.deltaTime;
+                }
+                else
+                {
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDFreeFall, true);
+                    }
+                }
+                
+                isjump = false;
+            }
+
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += Gravity * Time.deltaTime;
+            }
         }
-        else if (context.canceled)
+    
+    private void GroundedCheck()
+    {
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+            transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+            QueryTriggerInteraction.Ignore);
+        
+        if (_hasAnimator)
         {
-            isSprinting = false;
+            _animator.SetBool(_animIDGrounded, Grounded);
         }
     }
 
-    [SerializeField] private float gravity = 9.81f;
+     private void Move()
+    { 
+        float targetSpeed = issprint ? SprintSpeed : MoveSpeed;
 
-    private void Move()
-    {
-        Vector2 input = move.ReadValue<Vector2>();
+        if (move.ReadValue<Vector2>() == Vector2.zero) targetSpeed = 0.0f;
         
-        float targetSpeed = isSprinting ? SprintSpeed : MoveSpeed;
-        
-        if (input == Vector2.zero && !isSprinting)
-        {
-            targetSpeed = 0.0f;
-        }
-        else if (input != Vector2.zero && !isSprinting)
-        {
-            targetSpeed = MoveSpeed;
-        }
-        
-        Vector3 forward = playerCamera.transform.forward;
-        Vector3 right = playerCamera.transform.right;
-        forward.y = 0f;
-        right.y = 0f;
-        forward.Normalize();
-        right.Normalize();
+        float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
-        Vector3 moveDirection = forward * input.y + right * input.x;
-        moveDirection.Normalize();
-        
-        if (!_controller.isGrounded)
+        float speedOffset = 0.1f;
+        float inputMagnitude = move.ReadValue<Vector2>().magnitude;
+
+        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+            currentHorizontalSpeed > targetSpeed + speedOffset)
         {
-            moveDirection += Vector3.down * gravity;
+         
+            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+                Time.deltaTime * SpeedChangeRate);
+
+            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+        }
+        else
+        {
+            _speed = targetSpeed;
         }
         
-        _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        
-        _controller.Move(moveDirection * _speed * Time.deltaTime);
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+        Vector3 inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0.0f, move.ReadValue<Vector2>().y).normalized;
+
+       if (move.ReadValue<Vector2>() != Vector2.zero)
+        {
+            _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                              playerCamera.transform.eulerAngles.y;
+            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                rotationSpeed);
+
+            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        }
+
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+        if (_hasAnimator)
+        {
+            _animator.SetFloat(_animIDSpeed, _animationBlend);
+            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        }
     }
 
 
@@ -189,6 +344,8 @@ public class ThirdPersonController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
+    
+    
 
     private void Look(InputAction.CallbackContext context)
     {
@@ -215,22 +372,27 @@ public class ThirdPersonController : MonoBehaviour
         if (context.canceled)
         {
             isAim = false;
-            
         }
     }
+
     private void Interact(InputAction.CallbackContext context)
     {
-        
         iCollectible?.Collect();
         iCollectible = null;
         iSearchable?.Search();
         iItemAvailability?.UseItem();
-        
     }
     
     private void Inventory(InputAction.CallbackContext context)
     {
+        isUIopen = !isUIopen;
         InventoryManager.instance.OpenInventory();
+    }
+    
+    private void CloseInventory(InputAction.CallbackContext context)
+    {
+       // isUIopen = false;
+       // InventoryManager.instance.CloseInventory();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -267,5 +429,32 @@ public class ThirdPersonController : MonoBehaviour
         {
             iItemAvailability = null;
         }
-    }
-}
+    } 
+    
+    // private void HandleStamina()
+    // {
+    //     if (isSprinting && stamina > 0)
+    //     {
+    //         stamina -= sprintStaminaCost * Time.deltaTime;
+    //         if (stamina <= 0)
+    //         {
+    //             stamina = 0;
+    //             isSprinting = false;
+    //         }
+    //     }
+    //     else if (!isSprinting && stamina < maxStamina)
+    //     {
+    //         stamina += staminaRecoveryRate * Time.deltaTime;
+    //         if (stamina > maxStamina)
+    //         {
+    //             stamina = maxStamina;
+    //         }
+    //     }
+    //     staminaBar.fillAmount = stamina / maxStamina;
+    //     
+    //     if(stamina >= maxStamina)
+    //         staminaBar.gameObject.SetActive(false);
+    //     else if(stamina < maxStamina)
+    //         staminaBar.gameObject.SetActive(true);
+    // }
+} 
