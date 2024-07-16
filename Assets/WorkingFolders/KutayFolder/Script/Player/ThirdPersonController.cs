@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ThirdPersonController : MonoBehaviour
 {
     private ThirdPersonActionAsset playerActionAsset;
-    private InputAction move, aim, fire, sprint, look, interact, inventory, closeUi;
+    private InputAction move, aim, fire, sprint , jump, look, interact, inventory, closeUi;
     
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
     
+    public Image staminaBar;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private CinemachineFreeLook freeLookCamera;
 
@@ -29,8 +31,21 @@ public class ThirdPersonController : MonoBehaviour
     public float SpeedChangeRate = 10.0f;
     
     public bool isSprinting = false;
+    public bool isGrounded = false;
     private bool isAim = false;
     private bool isUIopen = false;
+    
+    [SerializeField] private float gravity = 9.81f;
+    
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float sprintStaminaCost = 10f;
+    [SerializeField] private float jumpStaminaCost = 20f;
+    [SerializeField] private float staminaRecoveryRate = 5f;
+
+    [SerializeField] private float jumpHeight = 2.0f;
+    private bool isJumping = false;
+    private float verticalVelocity;
 
     private void Awake()
     {
@@ -43,6 +58,7 @@ public class ThirdPersonController : MonoBehaviour
         aim = playerActionAsset.Player.Aim;
         fire = playerActionAsset.Player.Fire;
         closeUi = playerActionAsset.Player.CloseButton;
+        jump = playerActionAsset.Player.Jump;
     }
 
     private void Start()
@@ -63,6 +79,7 @@ public class ThirdPersonController : MonoBehaviour
         aim.canceled += StopAiming;
         fire.performed += Fire;
         closeUi.performed += CloseInventory;
+        jump.performed += Jump;
     }
 
     private void OnDisable()
@@ -77,6 +94,8 @@ public class ThirdPersonController : MonoBehaviour
         aim.performed -= Aim;
         aim.canceled -= StopAiming;
         fire.performed -= Fire;
+        jump.performed -= Jump;
+        
     }
     
     private void Fire(InputAction.CallbackContext obj)
@@ -95,6 +114,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Update()
     {
+        HandleStamina();
         Move();
         if (!isAim && !isUIopen)
         {
@@ -125,24 +145,25 @@ public class ThirdPersonController : MonoBehaviour
             isSprinting = false;
         }
     }
-
-    [SerializeField] private float gravity = 9.81f;
+    
+    private void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && _controller.isGrounded && stamina >= jumpStaminaCost)
+        {
+            verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity);
+            
+            stamina -= jumpStaminaCost;
+            
+            isJumping = true;
+        }
+    }
 
     private void Move()
     {
         Vector2 input = move.ReadValue<Vector2>();
-        
+    
         float targetSpeed = isSprinting ? SprintSpeed : MoveSpeed;
-        
-        if (input == Vector2.zero && !isSprinting)
-        {
-            targetSpeed = 0.0f;
-        }
-        else if (input != Vector2.zero && !isSprinting)
-        {
-            targetSpeed = MoveSpeed;
-        }
-        
+    
         Vector3 forward = playerCamera.transform.forward;
         Vector3 right = playerCamera.transform.right;
         forward.y = 0f;
@@ -153,15 +174,22 @@ public class ThirdPersonController : MonoBehaviour
         Vector3 moveDirection = forward * input.y + right * input.x;
         moveDirection.Normalize();
         
-        if (!_controller.isGrounded)
+        if (_controller.isGrounded && !isJumping)
         {
-            moveDirection += Vector3.down * gravity;
+            verticalVelocity = -gravity * Time.deltaTime;
+        }
+        else
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
         }
         
-        _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        Vector3 velocity = moveDirection * targetSpeed + Vector3.up * verticalVelocity;
+        _controller.Move(velocity * Time.deltaTime);
         
-        _controller.Move(moveDirection * _speed * Time.deltaTime);
+        _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
     }
+
+
 
     private void LookAt(Vector2 input)
     {
@@ -241,8 +269,8 @@ public class ThirdPersonController : MonoBehaviour
     
     private void CloseInventory(InputAction.CallbackContext context)
     {
-        isUIopen = false;
-        InventoryManager.instance.CloseInventory();
+       // isUIopen = false;
+       // InventoryManager.instance.CloseInventory();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -279,5 +307,32 @@ public class ThirdPersonController : MonoBehaviour
         {
             iItemAvailability = null;
         }
+    } 
+    
+    private void HandleStamina()
+    {
+        if (isSprinting && stamina > 0)
+        {
+            stamina -= sprintStaminaCost * Time.deltaTime;
+            if (stamina <= 0)
+            {
+                stamina = 0;
+                isSprinting = false;
+            }
+        }
+        else if (!isSprinting && stamina < maxStamina)
+        {
+            stamina += staminaRecoveryRate * Time.deltaTime;
+            if (stamina > maxStamina)
+            {
+                stamina = maxStamina;
+            }
+        }
+        staminaBar.fillAmount = stamina / maxStamina;
+        
+        if(stamina >= maxStamina)
+            staminaBar.gameObject.SetActive(false);
+        else if(stamina < maxStamina)
+            staminaBar.gameObject.SetActive(true);
     }
-}
+} 

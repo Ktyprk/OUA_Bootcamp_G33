@@ -64,6 +64,15 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""efa467e4-7eb4-4b2e-9b75-39fdb77c9877"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""367901e1-c7fb-471f-ad0d-699d9b137658"",
@@ -250,6 +259,17 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""CloseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f13fc963-f4c6-4d42-a42c-6be0f3f3dca0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -916,6 +936,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Vehicle = m_Player.FindAction("Vehicle", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
@@ -999,6 +1020,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Vehicle;
     private readonly InputAction m_Player_Sprint;
@@ -1012,6 +1034,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Vehicle => m_Wrapper.m_Player_Vehicle;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
@@ -1038,6 +1061,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
@@ -1069,6 +1095,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
@@ -1278,6 +1307,7 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnVehicle(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);

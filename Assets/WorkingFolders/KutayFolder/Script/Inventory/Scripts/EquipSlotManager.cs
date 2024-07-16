@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EquipSlotManager : MonoBehaviour
 {
+    private int equippedItem;
     public enum EquipType
     {
         Weapon,
@@ -11,8 +12,22 @@ public class EquipSlotManager : MonoBehaviour
     
     public EquipSlot weaponSlot;
     
+    private void Start()
+    {
+        if (SaveSystem.Instance.equippedItem > -1)
+        {
+            equippedItem = SaveSystem.Instance.equippedItem;
+            Item item = ItemDataBase.instance.GetItem(equippedItem);
+            ItemScript itemscript = Instantiate(item.itemPrefab).GetComponent<ItemScript>();
+            EquipItem(item, itemscript, EquipType.Weapon);
+            InventoryManager.instance.SetCustomEquippedWeapon(item, itemscript);
+        }
+    }
+    
     public void EquipItem(Item item, ItemScript itemscript, EquipType equipType)
     {
+        equippedItem = ItemDataBase.instance.GetItemIndex(item);
+        Save();
         switch (equipType)
         {
             case EquipType.Weapon:
@@ -26,6 +41,8 @@ public class EquipSlotManager : MonoBehaviour
     
     public void UnequipItem(EquipType equipType)
     {
+        equippedItem = -1;
+        Save();
         switch (equipType)
         {
             case EquipType.Weapon:
@@ -35,6 +52,12 @@ public class EquipSlotManager : MonoBehaviour
                 Debug.LogWarning("EquipType not recognized");
                 break;
         }
+    }
+
+    public void Save()
+    {
+        SaveSystem.Instance.equippedItem = equippedItem;
+        SaveSystem.Save();
     }
 }
 

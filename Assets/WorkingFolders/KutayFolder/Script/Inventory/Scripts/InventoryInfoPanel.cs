@@ -8,7 +8,7 @@ public class InventoryInfoPanel : MonoBehaviour
 {
     private Item selectedItem;
 
-    public GameObject player;
+    public GameObject player, iMainPanel, infoPanel;
 
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemNameText;
@@ -29,6 +29,10 @@ public class InventoryInfoPanel : MonoBehaviour
         
         if (selectedItem != null)
         {
+            RectTransform rectTransform = iMainPanel.gameObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(0, rectTransform.anchoredPosition.y);
+
+            infoPanel.SetActive(true);
             itemNameText.text = selectedItem.itemName;
             itemDescriptionText.text = selectedItem.itemDescription;
             itemImage.sprite = selectedItem.itemIcon; 
@@ -36,10 +40,14 @@ public class InventoryInfoPanel : MonoBehaviour
         }
         else
         {
-            itemNameText.text = "Seçili öğe yok";
-            itemDescriptionText.text = "";
-            itemImage.sprite = null; 
-            actionButtonText.text = "";
+            RectTransform rectTransform = iMainPanel.gameObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(80, rectTransform.anchoredPosition.y);
+
+            infoPanel.SetActive(false);
+            // itemNameText.text = "Seçili öğe yok";
+            // itemDescriptionText.text = "";
+            // itemImage.sprite = null; 
+            // actionButtonText.text = "";
         }
     }
     

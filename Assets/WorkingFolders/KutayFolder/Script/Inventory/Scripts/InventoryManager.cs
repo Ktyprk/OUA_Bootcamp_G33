@@ -1,3 +1,6 @@
+using System;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +13,14 @@ public class InventoryManager : MonoBehaviour
     public EquipSlotManager equipSlotManager;
     
     public ThirdPersonActionAsset playerActionAsset;
-    private InputAction UIinput, UIcancel;
+    private InputAction UIinput;
     private int selectedSlot = 0;
-    private const int maxSlots = 28;
+    private const int maxSlots = 24;
     private ItemScript equipedItemScript;
 
     public GameObject mainInventory;
+    public GameObject itemTextNotificationPrefab;
+    public Transform itemTextNotTransform;
 
     private Item equippedWeapon;
     private bool isInventoryOpen = false;
@@ -32,7 +37,25 @@ public class InventoryManager : MonoBehaviour
         }
         playerActionAsset = new ThirdPersonActionAsset();
         UIinput = playerActionAsset.UI.InGameNavigate;
-        UIcancel = playerActionAsset.UI.Cancel;
+        
+        //LoadInventory();
+        if(SaveSystem.Instance.inventory != null)
+        {
+        
+        (int, int)[] inventory = SaveSystem.Instance.inventory;
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if (inventory[i].Item1 == -1)
+            {
+                continue;
+            }
+            for (int j = 0; j < inventory[i].Item2; j++)
+            {
+                ItemScript script = Instantiate(ItemDataBase.instance.GetItem(inventory[i].Item1).itemPrefab).GetComponent<ItemScript>();
+                AddItem(ItemDataBase.instance.GetItem(inventory[i].Item1), script, false);
+            }
+        }
+        }
     }
 
     private void Start()
@@ -42,13 +65,13 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 1; i <= 5; i++)
-        {
-            if (Input.GetKeyDown(i.ToString()))
-            {
-                ChangeSelectedSlot(i - 1);
-            }
-        }
+        // for (int i = 1; i <= 5; i++)
+        // {
+        //     if (Input.GetKeyDown(i.ToString()))
+        //     {
+        //         ChangeSelectedSlot(i - 1);
+        //     }
+        // }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -62,16 +85,18 @@ public class InventoryManager : MonoBehaviour
         if(isInventoryOpen)
         {
             mainInventory.SetActive(true);
+            SelectFirstSlot();
         }
         else
         {
-            mainInventory.SetActive(false);
+            CloseInventory();
         }
     }
     
     public void CloseInventory()
     {
         mainInventory.SetActive(false);
+        Save();
     }
 
     private void OnEnable()
@@ -90,16 +115,35 @@ public class InventoryManager : MonoBehaviour
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
 
-        if (inputVector.x > 0)
+        if (inputVector.x > 0 && inputVector.y == 0)
         {
             ChangeSelectedSlot(selectedSlot + 1);
         }
-        else if (inputVector.x < 0)
+        else if (inputVector.x < 0  && inputVector.y == 0 )
         {
             ChangeSelectedSlot(selectedSlot - 1);
         }
+    
+        // if (inputVector.y < 0 && selectedSlot + 8 < maxSlots) // Kontrol ekleniyor
+        // {
+        //     ChangeSelectedSlot(selectedSlot + 8);
+        // }
+        // else if (inputVector.y > 0 && selectedSlot - 8 >= 0) // Kontrol ekleniyor
+        // {
+        //     ChangeSelectedSlot(selectedSlot - 8);
+        // }
     }
-
+    
+    void SelectFirstSlot()
+    {
+        if (inventorySlots.Length > 0)
+        {
+            inventorySlots[selectedSlot]?.Deselect();
+            selectedSlot = 0;
+            inventorySlots[selectedSlot]?.Select();
+        }
+    }
+    
     void ChangeSelectedSlot(int newSlot)
     {
         if (inventorySlots.Length > 0)
@@ -118,7 +162,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item item, ItemScript itemScript)
+    public bool AddItem(Item item, ItemScript itemScript, bool showNotification = true)
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -127,6 +171,8 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot != null && itemInSlot.item == item && item.stackable && itemInSlot.count < item.maxStackSize)
             {
                 itemInSlot.count++;
+                if(showNotification)
+                  ShowItemTextNotification(itemInSlot.item.itemName + "collected");
                 itemInSlot.RefreshCount();
                 return true;
             }
@@ -148,7 +194,8 @@ public class InventoryManager : MonoBehaviour
                 {
                     SpawnNewItem(item, slot, null);
                 }
-               
+                if(showNotification)
+                   ShowItemTextNotification(item.itemName + " collected");
                 return true;
             }
         }
@@ -192,6 +239,7 @@ public class InventoryManager : MonoBehaviour
             {
                 itemInSlot.count--;
                 itemInSlot.itemScript.InteractItem();
+                ShowItemTextNotification(itemInSlot.item.itemName + "used");
                 if (itemInSlot.count == 0)
                 {
                     Destroy(itemInSlot.gameObject);
@@ -212,12 +260,14 @@ public class InventoryManager : MonoBehaviour
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            
 
             if (itemInSlot != null && itemInSlot.item.itemID == itemID)
             {
                 if (itemInSlot.count >= amount)
                 {
                     itemInSlot.count -= amount;
+                    ShowItemTextNotification(itemInSlot.item.itemName + "used");
                     if (itemInSlot.count <= 0)
                     {
                         Destroy(itemInSlot.gameObject);
@@ -253,6 +303,12 @@ public class InventoryManager : MonoBehaviour
         equipSlotManager.EquipItem(item, GetSelectedItemSlot(), EquipSlotManager.EquipType.Weapon);
        equipedItemScript = GetSelectedItemSlot();
     }
+    
+    public void SetCustomEquippedWeapon(Item item, ItemScript itemScript)
+    {
+        equippedWeapon = item;
+        equipedItemScript = itemScript;
+    }
 
     public ItemScript GetEquippedWeapon()
     {
@@ -264,6 +320,38 @@ public class InventoryManager : MonoBehaviour
         return item == equippedWeapon;
     }
     
-   
+    private void Save()
+    {
+        (int, int)[] inventory = new (int, int)[maxSlots];
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if(inventorySlots[i] == null) return; 
+            
+            InventoryItem item = inventorySlots[i].GetComponentInChildren<InventoryItem>();
+            if(item == null)
+            {
+                inventory[i] = (-1, 0);
+            }
+            else
+            {
+                inventory[i] = (ItemDataBase.instance.GetItemIndex(item.item), item.count);
+            }
+        }
+    
+        SaveSystem.Instance.inventory = inventory;
+        SaveSystem.Save();
+    }
+    
+    public void ShowItemTextNotification(string text)
+    {
+        GameObject popup = Instantiate(itemTextNotificationPrefab, itemTextNotTransform);
+        
+        TMP_Text textComponent = popup.GetComponentInChildren<TMP_Text>();
+        textComponent.text = text;
+        
+        Destroy(popup, 2f);
+    }
+
+
     
 }
