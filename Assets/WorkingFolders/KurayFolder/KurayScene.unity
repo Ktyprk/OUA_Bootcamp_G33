@@ -433,6 +433,7 @@ MonoBehaviour:
   searchTime: 1
   buttonPrefab: {fileID: 5187436384438422598, guid: 4fd78ef23afa88e44823b325ad8bbe30,
     type: 3}
+  scrollView: {fileID: 0}
   scrollViewContent: {fileID: 653735530}
   items:
   - {fileID: 11400000, guid: 72336ace0f749b048bcd8dc944ebaa34, type: 2}
@@ -5351,6 +5352,14 @@ MonoBehaviour:
   rotationSpeed: 10
   playerCamera: {fileID: 0}
   freeLookCamera: {fileID: 0}
+  MoveSpeed: 2
+  SprintSpeed: 5.335
+  SpeedChangeRate: 10
+  isSprinting: 0
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  projectileSpeed: 10
+  gravity: 9.81
 --- !u!143 &1520660241
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7070,6 +7079,7 @@ MonoBehaviour:
   - {fileID: 2011290937}
   inventoryItemPrefab: {fileID: 7606332727667446340, guid: 702e28b4d5d812c44b50589f9bc0418a,
     type: 3}
+  mainInventory: {fileID: 0}
 --- !u!1001 &1955646902
 PrefabInstance:
   m_ObjectHideFlags: 0
