@@ -93,7 +93,9 @@ MonoBehaviour:
   countText: {fileID: 5615869384154944495}
   item: {fileID: 0}
   count: 1
+  parentBeforeDrag: {fileID: 0}
   parentAfterDrag: {fileID: 0}
+  itemScript: {fileID: 0}
 --- !u!1 &7860529454033286322
 GameObject:
   m_ObjectHideFlags: 0
