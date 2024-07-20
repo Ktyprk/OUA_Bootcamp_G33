@@ -150,6 +150,17 @@ Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,K
 
 ![image](https://github.com/user-attachments/assets/740830d8-58d4-4373-9171-c41e0b91a338)
 
+![image](https://github.com/user-attachments/assets/74f4f8b7-4a7c-436a-bb8a-84530b5f67c9)
+
+![image](https://github.com/user-attachments/assets/df5417b4-ea62-456b-bf75-efddaf716b13)
+
+![image](https://github.com/user-attachments/assets/c541e674-9cd1-40ef-93d7-2eb25c3efca5)
+
+![image](https://github.com/user-attachments/assets/f47097cf-bc9d-45d5-89fc-d66112484eaa)
+
+![image](https://github.com/user-attachments/assets/db04e1b4-1cd0-4df4-adde-43ae5f291e6d)
+
+![image](https://github.com/user-attachments/assets/fd589338-2c21-4a40-940c-38ed7b6ac86d)
 
 <h3>Sprint Retrospective:</h3>
 
