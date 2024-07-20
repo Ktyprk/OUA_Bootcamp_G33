@@ -124,3 +124,32 @@ Watsapp, Discord ve Asana üzerinden haberleşme sağlanarak görevler üzerinde
 
 Ekip ile beraber görev dağılımı yapıldı.Herkesin bilgilerinin üzerinden geçerek kimler hangi görevleri daha iyi yapabilir ya da hangilerini yapmak isteyebilir bu konuda yapılan ilk toplantıda notlar alındı. Görev dağılımı bitiminde oyunun üzerinden geçildi ve herkes kafasındaki konu hakkında bir şeyler oluşturmaya başladı önce konuyu netleştirdik ardından herkese belli süre vererek belirlenen konu hakkında bir metin veya hikaye yazılmasını istedik. Bir sonraki toplantıya kadar kararlaştırılan bu karar herkesin ortak bir fikirde buluşmasını sağlamaktı.Bir sonraki dailies toplantımızda herkes yazdığı hikayeyi paylaştı ve en sevilen ya da en çok ilerleyebileceğimiz konu üzerinden ilerlemeye karar verildi. İlerleyeceğimiz oyun hakkında herkesin fikrini aldık,eklemeler olması durumunu konuştuk.Diyaloglar konusunda daha net olmamıza karar verdik.Scrum master'ı seçtik .Scrum master konusunda daha net olmak  için herkesin fikri alındı. Gruptaki proje yöneticisi/scrum master katıldığı toplantılar hakkında bizi bilgilendirdi.Slack grubunda önemli duyurular yapılmışsa bunları hızlıca watsapp grubumuzda paylaştık ve discord'ta bir araya gelerek tartıştık.Sprint 1 için düşündüklerimiz genel olarak oyunun gidişatının nasıl olacağı,görev tanımlarımızın nasıl olacağı,nasıl haberleşeceğiz,toplantı notlarımızın tutulması ve kaydedilmesi.Toplantı günlerinin kararlaştırılması ve düzenli olarak katılım sağlanmak üzere takip edilmesi.Asana'da görev listesinin çıkarılması ve tamamlanan işler hakkında Asana'nın güncel olması.
 
+
+
+
+<h1> Sprint 2 (20P)</h1> 
+
+Sprint içinde tamamlanması tahmin edilen puan: 20 Puan
+
+Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir. Discord'da haftada birkaç gün toplantılar yapılmıştır. Toplantılar esnasında eksik kalan kısımlar ya da değiştirilecekler konusunda konuşulmuştur.Hikaye konusunda oyunlaştırmaya etkisi olacağını düşündüğümüz için bazı noktalarda değişiklik yapılmıştır.
+Gruptaki herkesin daha kolay ulaşması ve daha rahat değişiklik yapması açısından belgeler gmail üzerinden paylaşılmıştır. Paylaşılan belgeler üzerinde değişiklik yapılmışsa toplantıda yapılan değişiklik ve neden yapıldığı toplantının gündemini oluşturmuştur.
+
+UI ve asset konusunda yeni kanallar açılmıştır. Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.Kullanılacak NPC için konuşmalar yapılmıştır.Asset örnekleri araştırılmıştır.Mekanikler gözden geçirilmiştir.
+
+![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
+
+Asana görseli konulacak.
+Sahnelerin görselleri konulacak.
+
+<h3>Sprint Review:</h3>
+
+Sprint 2 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. Diyalogların üzerinden geçilmiştir.(10P)
+Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,
+
+<h3>Sprint Retrospective:</h3>
+
+Sprint 2 için alınan puan 20'dir. Bug'ların çözülmesi diğer sprint'e kalmıştır.
+Takım üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılmıştır.
+Map?
+Karakter ?
+animasyon ?
