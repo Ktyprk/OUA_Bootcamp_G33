@@ -138,6 +138,8 @@ UI ve asset konusunda yeni kanallar açılmıştır. Kanalda kullanılmak üzere
 
 ![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
 
+![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)
+
 Asana görseli konulacak.
 Sahnelerin görselleri konulacak.
 
