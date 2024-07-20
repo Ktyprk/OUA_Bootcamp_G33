@@ -144,7 +144,10 @@ Sahnelerin görselleri konulacak.
 <h3>Sprint Review:</h3>
 
 Sprint 2 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. Diyalogların üzerinden geçilmiştir.(10P)
-Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,
+Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,Kuray Tunç
+
+![image](https://github.com/user-attachments/assets/740830d8-58d4-4373-9171-c41e0b91a338)
+
 
 <h3>Sprint Retrospective:</h3>
 
