@@ -170,3 +170,5 @@ Takım üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılm�
 
 ![image](https://github.com/user-attachments/assets/beb33e10-6cd8-4be9-9758-7b093315cb90)
 
+![image](https://github.com/user-attachments/assets/e1e9d653-c465-4702-9ff6-9fca0a0fe188)
+
