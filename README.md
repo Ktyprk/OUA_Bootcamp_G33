@@ -140,10 +140,7 @@ UI ve asset konusunda yeni kanallar açılmıştır. Kanalda kullanılmak üzere
 
 ![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)
 
-Asana görseli konulacak.
-Sahnelerin görselleri konulacak.
-
-<h3>Sprint Review:</h3>
+<h3>Sprint Review:</h3>(10P)
 
 Sprint 2 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. Diyalogların üzerinden geçilmiştir.(10P)
 Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,Kuray Tunç
@@ -162,10 +159,14 @@ Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,K
 
 ![image](https://github.com/user-attachments/assets/fd589338-2c21-4a40-940c-38ed7b6ac86d)
 
-<h3>Sprint Retrospective:</h3>
+<h3>Sprint Retrospective:</h3> (10p)
 
-Sprint 2 için alınan puan 20'dir. Bug'ların çözülmesi diğer sprint'e kalmıştır.
-Takım üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılmıştır.
-Map?
-Karakter ?
-animasyon ?
+Sprint 2 için alınan puan 20'dir. Bug'ların çözülmesi diğer sprint'e kalmıştır.                                        
+Takım üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılmıştır.                                                      
+
+![image](https://github.com/user-attachments/assets/9ecc89ad-4d85-4eb1-8d05-bfa66ddb6139)
+
+![image](https://github.com/user-attachments/assets/153c83fe-723c-48f1-be6a-01589fbd1994)
+
+![image](https://github.com/user-attachments/assets/beb33e10-6cd8-4be9-9758-7b093315cb90)
+
