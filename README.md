@@ -131,6 +131,8 @@ Ekip ile beraber görev dağılımı yapıldı.Herkesin bilgilerinin üzerinden 
 
 Sprint içinde tamamlanması tahmin edilen puan: 20 Puan
 
+<h3>Sprint Notları </h3>
+
 Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir. Discord'da haftada birkaç gün toplantılar yapılmıştır. Toplantılar esnasında eksik kalan kısımlar ya da değiştirilecekler konusunda konuşulmuştur.Hikaye konusunda oyunlaştırmaya etkisi olacağını düşündüğümüz için bazı noktalarda değişiklik yapılmıştır.
 Gruptaki herkesin daha kolay ulaşması ve daha rahat değişiklik yapması açısından belgeler gmail üzerinden paylaşılmıştır. Paylaşılan belgeler üzerinde değişiklik yapılmışsa toplantıda yapılan değişiklik ve neden yapıldığı toplantının gündemini oluşturmuştur.
 
