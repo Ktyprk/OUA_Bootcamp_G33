@@ -136,7 +136,11 @@ Gruptaki herkesin daha kolay ulaşması ve daha rahat değişiklik yapması aç�
 
 <h3>Sprint Notları </h3>
 
-UI ve asset konusunda yeni kanallar açılmıştır. Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.Kullanılacak NPC için konuşmalar yapılmıştır.Asset örnekleri araştırılmıştır.Mekanikler gözden geçirilmiştir.
+UI ve asset konusunda yeni kanallar açılmıştır.                                                   
+Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.                                                           
+Kullanılacak NPC için konuşmalar yapılmıştır.                                                                                            
+Asset örnekleri araştırılmıştır.                                                                                                  
+Mekanikler gözden geçirilmiştir.                                                                                                                 
 
 ![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
 
@@ -174,3 +178,10 @@ Takım üyelerinin gelecek sprintlerde aktif olması gerektiğine vurgu yapılm�
 
 ![image](https://github.com/user-attachments/assets/e1e9d653-c465-4702-9ff6-9fca0a0fe188)
 
+Puan Tamamlama Mantığı 
+Puan tanımlanması aşağıdaki konular özelinde detaylandırılmıştır.Toplam puan 20 olarak kararlaştırılmıştır. Sprint Review ve Retrospektif'e 10 ar 10 ar dağıtılmıştır.
+UI ve asset konusunda yeni kanallar açılmıştır.Asana'da düzenlemeler yapılmıştır.(4P)                                                  
+Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.Hikaye üzerine konuşmalar yapılmıştır.Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır.(4P)                                               
+Kullanılacak NPC için konuşmalar yapılmıştır.NPC mantığı için neler yapılabilir nasıl ilerleyelim konuşması yapılmıştır.(4P)                                                                                        
+Asset örnekleri araştırılmıştır.Asset örnekleri hakkında konuşulmuştur.(4P)                                                                                                 
+Mekanikler gözden geçirilmiştir.Eksike veya hatalı olan mekanikleri için toplantı yapılıp script kontrolleir yapılmıştır.(4P)  
