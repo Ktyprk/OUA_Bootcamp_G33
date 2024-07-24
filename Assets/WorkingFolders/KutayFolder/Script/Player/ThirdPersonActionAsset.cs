@@ -38,21 +38,12 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": ""Look"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""1745d2b0-5cc9-4104-a821-0fc0921e2caf"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""6c169329-7edd-45f4-927a-554e305e1792"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Interact"",
@@ -92,9 +83,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""5eff167d-058c-471f-8524-2065274d147c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -103,6 +94,15 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""452bc606-c970-4707-bbc9-c161e42b545a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c169329-7edd-45f4-927a-554e305e1792"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -176,19 +176,8 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""93d073f1-9eff-4105-ba94-7efa76524a08"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -242,17 +231,6 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": """",
-                    ""id"": ""618eec71-6238-42d4-a9bb-82721131f46a"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a2fa97e3-a78f-43a0-b600-08379a582819"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -270,6 +248,28 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""618eec71-6238-42d4-a9bb-82721131f46a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -934,13 +934,13 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Vehicle = m_Player.FindAction("Vehicle", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_CloseButton = m_Player.FindAction("CloseButton", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1018,13 +1018,13 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Vehicle;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_CloseButton;
     public struct PlayerActions
     {
@@ -1032,13 +1032,13 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
         public PlayerActions(@ThirdPersonActionAsset wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Vehicle => m_Wrapper.m_Player_Vehicle;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @CloseButton => m_Wrapper.m_Player_CloseButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1055,9 +1055,6 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -1076,6 +1073,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
             @CloseButton.started += instance.OnCloseButton;
             @CloseButton.performed += instance.OnCloseButton;
             @CloseButton.canceled += instance.OnCloseButton;
@@ -1089,9 +1089,6 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -1110,6 +1107,9 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
             @CloseButton.started -= instance.OnCloseButton;
             @CloseButton.performed -= instance.OnCloseButton;
             @CloseButton.canceled -= instance.OnCloseButton;
@@ -1305,13 +1305,13 @@ public partial class @ThirdPersonActionAsset: IInputActionCollection2, IDisposab
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnFire(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnVehicle(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
         void OnCloseButton(InputAction.CallbackContext context);
     }
     public interface IUIActions
