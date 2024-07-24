@@ -691,7 +691,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_sharedMaterial: {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1027,7 +1028,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_sharedMaterial: {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1184,19 +1186,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eeeabfea559a87418a9ff396ebddaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isjump: 0
+  issprint: 0
   maxSpeed: 5
   rotationSpeed: 10
+  staminaBar: {fileID: 0}
   playerCamera: {fileID: 0}
   freeLookCamera: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   SpeedChangeRate: 10
-  isSprinting: 0
-  projectilePrefab: {fileID: 1259547013272521645, guid: 11a8ecffc115f6944ad2c0b65198412b,
-    type: 3}
-  firePoint: {fileID: 106285810}
-  projectileSpeed: 10
-  gravity: 9.81
+  Gravity: -15
+  stamina: 100
+  maxStamina: 100
+  sprintStaminaCost: 10
+  jumpStaminaCost: 20
+  staminaRecoveryRate: 8
+  JumpHeight: 1.2
+  JumpTimeout: 0.5
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &661134311
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2672,7 +2686,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_sharedMaterial: {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3411,7 +3426,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_sharedMaterial: {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6246546265160628695, guid: fb5c40230939afb418cb5d233d749efe, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
