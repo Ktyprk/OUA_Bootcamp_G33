@@ -24,5 +24,5 @@ MonoBehaviour:
   isuseable: 0
   isequippable: 1
   maxStackSize: 0
-  itemPrefab: {fileID: 4231041072441412772, guid: 177c285244bf3c8409de487dd8ab5c42,
+  itemPrefab: {fileID: 4231041072441412772, guid: 7b11778938f68a443b782b511e536dd0,
     type: 3}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: f1da796d85c85b444b549a181e990b31
+<<<<<<<< HEAD:Assets/WorkingFolders/KurayFolder/Scenes/PhoneCall.unity.meta
+guid: b1b902713a304e74d8e8fe403f56728a
+========
+guid: e9017d5f96b9f09489b4b37e1d6eb914
+>>>>>>>> Kutay'sBranch:Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

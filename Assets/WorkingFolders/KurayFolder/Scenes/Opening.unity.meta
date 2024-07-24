@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 720ef8d3767307043a3a4c4cb1ece58c
+<<<<<<<< HEAD:Assets/WorkingFolders/KurayFolder/Scenes/Opening.unity.meta
+guid: 7b353b9af78ae5449a0a74d23e570d19
+========
+guid: b5f957873a5b82042967195ffffc9063
+>>>>>>>> Kutay'sBranch:Assets/StarterAssets/StarterAssets_Documentation_v1.1.pdf.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

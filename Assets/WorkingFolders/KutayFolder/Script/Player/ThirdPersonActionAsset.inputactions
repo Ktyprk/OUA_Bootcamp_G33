@@ -16,21 +16,12 @@
                 },
                 {
                     "name": "Look",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "1745d2b0-5cc9-4104-a821-0fc0921e2caf",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Fire",
-                    "type": "Button",
-                    "id": "6c169329-7edd-45f4-927a-554e305e1792",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -70,9 +61,9 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "5eff167d-058c-471f-8524-2065274d147c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -81,6 +72,15 @@
                     "name": "Aim",
                     "type": "Button",
                     "id": "452bc606-c970-4707-bbc9-c161e42b545a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "6c169329-7edd-45f4-927a-554e305e1792",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -154,19 +154,8 @@
                 },
                 {
                     "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "93d073f1-9eff-4105-ba94-7efa76524a08",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -220,17 +209,6 @@
                 },
                 {
                     "name": "",
-                    "id": "618eec71-6238-42d4-a9bb-82721131f46a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a2fa97e3-a78f-43a0-b600-08379a582819",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -248,6 +226,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "618eec71-6238-42d4-a9bb-82721131f46a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
