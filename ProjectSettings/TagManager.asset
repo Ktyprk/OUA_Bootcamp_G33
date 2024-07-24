@@ -6,6 +6,8 @@ TagManager:
   tags:
   - tavan
   - Selectable
+  - FirePoint
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - UI
   - Ground
   - duvar
-  - 
-  - 
+  - NoWalk
+  - Selectable
   - 
   - 
   - 

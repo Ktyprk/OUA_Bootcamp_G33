@@ -74,6 +74,8 @@ public class SearchableObjects : MonoBehaviour, ISearchable
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
 
+        if(isOpenList)
+        {
         if (inputVector.y > 0)
         {
             lootControllers[selectedLootIndex].ToggleHighlight(false);
@@ -91,6 +93,7 @@ public class SearchableObjects : MonoBehaviour, ISearchable
                 selectedLootIndex = 0;
             
             lootControllers[selectedLootIndex].ToggleHighlight(true);
+        }
         }
         
     }

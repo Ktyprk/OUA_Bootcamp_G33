@@ -2112,7 +2112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ca735fe41a7f147a2655c5ce2afb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usableitemid: 0
+  _usableItemId: 0
+  _usableItemCount: 0
+  itemUseInfoPrefab: {fileID: 0}
 --- !u!135 &581697961
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5348,18 +5350,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eeeabfea559a87418a9ff396ebddaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isjump: 0
+  issprint: 0
   maxSpeed: 5
   rotationSpeed: 10
+  staminaBar: {fileID: 0}
   playerCamera: {fileID: 0}
   freeLookCamera: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   SpeedChangeRate: 10
-  isSprinting: 0
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  projectileSpeed: 10
-  gravity: 9.81
+  Gravity: -15
+  stamina: 100
+  maxStamina: 100
+  sprintStaminaCost: 10
+  jumpStaminaCost: 20
+  staminaRecoveryRate: 8
+  JumpHeight: 1.2
+  JumpTimeout: 0.5
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &1520660241
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6901,7 +6916,10 @@ MonoBehaviour:
   - {fileID: 2011290937}
   inventoryItemPrefab: {fileID: 7606332727667446340, guid: 702e28b4d5d812c44b50589f9bc0418a,
     type: 3}
+  equipSlotManager: {fileID: 0}
   mainInventory: {fileID: 0}
+  itemTextNotificationPrefab: {fileID: 0}
+  itemTextNotTransform: {fileID: 0}
 --- !u!1001 &1955646902
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,7 @@ public class InventoryManager : MonoBehaviour
     private const int maxSlots = 24;
     private ItemScript equipedItemScript;
 
-    public GameObject mainInventory;
+    public GameObject mainInventory, pistolGun;
     public GameObject itemTextNotificationPrefab;
     public Transform itemTextNotTransform;
 
@@ -57,6 +58,19 @@ public class InventoryManager : MonoBehaviour
         }
         }
     }
+    
+    public ItemScript GetItem(int index)
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+            InventoryItem item = inventorySlots[i].GetComponentInChildren<InventoryItem>();
+            if (item != null && ItemDataBase.instance.GetItemIndex(item.item) == index)
+            {
+                return item.itemScript;
+            }
+        }
+        return null;
+    }
 
     private void Start()
     {
@@ -73,9 +87,27 @@ public class InventoryManager : MonoBehaviour
         //     }
         // }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     RemoveItem(0, 1);
+        // }
+        
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0) // Scroll through slots
         {
-            RemoveItem(0, 1);
+            int newValue = selectedSlot + (int)(scroll / Mathf.Abs(scroll));
+    
+            // Wrap around logic for toolbar slots
+            if (newValue < 0)
+            {
+                newValue = maxSlots - 1;
+            }
+            else if (newValue >= maxSlots)
+            {
+                newValue = 0;
+            }
+
+            ChangeSelectedSlot(newValue);
         }
     }
 
@@ -124,14 +156,14 @@ public class InventoryManager : MonoBehaviour
             ChangeSelectedSlot(selectedSlot - 1);
         }
     
-        // if (inputVector.y < 0 && selectedSlot + 8 < maxSlots) // Kontrol ekleniyor
-        // {
-        //     ChangeSelectedSlot(selectedSlot + 8);
-        // }
-        // else if (inputVector.y > 0 && selectedSlot - 8 >= 0) // Kontrol ekleniyor
-        // {
-        //     ChangeSelectedSlot(selectedSlot - 8);
-        // }
+        if (inputVector.y < 0 && selectedSlot + 8 < maxSlots) // Kontrol ekleniyor
+        {
+            ChangeSelectedSlot(selectedSlot + 8);
+        }
+        else if (inputVector.y > 0 && selectedSlot - 8 >= 0) // Kontrol ekleniyor
+        {
+            ChangeSelectedSlot(selectedSlot - 8);
+        }
     }
     
     void SelectFirstSlot()
@@ -302,6 +334,8 @@ public class InventoryManager : MonoBehaviour
         equippedWeapon = item;
         equipSlotManager.EquipItem(item, GetSelectedItemSlot(), EquipSlotManager.EquipType.Weapon);
        equipedItemScript = GetSelectedItemSlot();
+       
+       
     }
     
     public void SetCustomEquippedWeapon(Item item, ItemScript itemScript)
