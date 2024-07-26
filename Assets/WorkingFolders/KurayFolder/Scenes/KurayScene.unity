@@ -5354,9 +5354,7 @@ MonoBehaviour:
   issprint: 0
   maxSpeed: 5
   rotationSpeed: 10
-  staminaBar: {fileID: 0}
   playerCamera: {fileID: 0}
-  freeLookCamera: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   SpeedChangeRate: 10
@@ -6918,6 +6916,7 @@ MonoBehaviour:
     type: 3}
   equipSlotManager: {fileID: 0}
   mainInventory: {fileID: 0}
+  pistolGun: {fileID: 0}
   itemTextNotificationPrefab: {fileID: 0}
   itemTextNotTransform: {fileID: 0}
 --- !u!1001 &1955646902

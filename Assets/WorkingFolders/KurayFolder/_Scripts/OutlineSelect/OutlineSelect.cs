@@ -1,68 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class OutlineSelect : MonoBehaviour
 {
-    private Transform highlight;
+    [Range(0.1f, 100f)]
+    public float gizmoRadius = 5f; // Gizmo'nun yarýçapý
     private Transform selection;
-    private RaycastHit raycastHit;
 
     void Update()
     {
-        // Highlight
-        if (highlight != null)
+        // Selection
+        if (selection != null)
         {
-            highlight.gameObject.GetComponent<Outline>().enabled = false;
-            highlight = null;
+            selection.gameObject.GetComponent<Outline>().enabled = false;
+            selection = null;
         }
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit)) //Make sure you have EventSystem in the hierarchy before using EventSystem
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, gizmoRadius);
+        foreach (var hitCollider in hitColliders)
         {
-            highlight = raycastHit.transform;
-            if (highlight.CompareTag("Selectable") && highlight != selection)
+            Transform hitTransform = hitCollider.transform;
+            if (hitTransform.CompareTag("Selectable"))
             {
-                if (highlight.gameObject.GetComponent<Outline>() != null)
+                if (hitTransform.gameObject.GetComponent<Outline>() != null)
                 {
-                    highlight.gameObject.GetComponent<Outline>().enabled = true;
+                    hitTransform.gameObject.GetComponent<Outline>().enabled = true;
+                    Debug.Log($"Outline enabled for {hitTransform.name}");
                 }
                 else
                 {
-                    Outline outline = highlight.gameObject.AddComponent<Outline>();
+                    Outline outline = hitTransform.gameObject.AddComponent<Outline>();
                     outline.enabled = true;
-                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
-                    highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
+                    outline.OutlineColor = Color.magenta;
+                    outline.OutlineWidth = 7.0f;
+                    Debug.Log($"Outline component added and enabled for {hitTransform.name}");
                 }
-            }
-            else
-            {
-                highlight = null;
-            }
-        }
-
-        // Selection
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (highlight)
-            {
-                if (selection != null)
-                {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                }
-                selection = raycastHit.transform;
-                selection.gameObject.GetComponent<Outline>().enabled = true;
-                highlight = null;
-            }
-            else
-            {
-                if (selection)
-                {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                    selection = null;
-                }
+                selection = hitTransform;
+                break;
             }
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, gizmoRadius);
+    }
 }

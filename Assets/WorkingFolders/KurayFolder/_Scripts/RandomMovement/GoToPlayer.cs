@@ -1,66 +1,86 @@
 using UnityEngine;
 using UnityEngine.AI;
 using DialogueEditor;
-using System.Collections;
 
 public class MoveToPlayer : MonoBehaviour
 {
     [SerializeField] private NPCConversation myConversation;
     [SerializeField] private float originalSpeed = 3.5f; // Hýzý saklamak için
-
+    public float stopDistance = 2f;
     private NavMeshAgent agent;
     private Transform playerTransform;
-    private Rigidbody rb;
-    private bool isPlayerInside = false;
-    private bool isMovingToRandomPosition = false;
+    private bool isMovingToRandomPosition;
+
+    private GameObject player;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>(); // Rigidbody bileþenini al
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerTransform = player.transform;
         }
-        else
-        {
-            Debug.LogError("Player tag'ine sahip obje bulunamadý!");
-        }
 
-        // Orijinal hýz deðerini sakla
         originalSpeed = agent.speed;
     }
 
     void Update()
     {
-        if (playerTransform != null && !isPlayerInside && !isMovingToRandomPosition)
+        if (playerTransform != null && !isMovingToRandomPosition)
         {
-            // Player'a doðru hareket et
-            agent.SetDestination(playerTransform.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            Debug.Log(distanceToPlayer);
+
+            if (distanceToPlayer <= stopDistance)
+            {
+                LookAtPlayer();
+                agent.isStopped = true;
+            }
+            else
+            {
+                agent.isStopped = false;
+                agent.SetDestination(playerTransform.position);
+            }
         }
+        else if (isMovingToRandomPosition)
+        {
+            MoveToRandomPosition();
+        }
+    }
+
+    private void MoveToRandomPosition()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * 10f;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
+        Vector3 finalPosition = hit.position;
+
+        agent.SetDestination(finalPosition);
+        agent.isStopped = false;
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 500f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInside = true;
-            agent.isStopped = true; // Hareketi durdur
-            StopCoroutine(MoveToRandomPosition());
+            isMovingToRandomPosition = false;
+            agent.isStopped = true;
 
-            // Hýzý sýfýr yap
-            agent.speed = 0f;
-
-            // Konuþmayý baþlat
             if (ConversationManager.Instance != null)
             {
                 ConversationManager.Instance.StartConversation(myConversation);
             }
-
-            // Player'a bak
-            transform.LookAt(playerTransform);
         }
     }
 
@@ -68,32 +88,8 @@ public class MoveToPlayer : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInside = false;
-            isMovingToRandomPosition = true; // Rastgele pozisyonlara gitme modu aktif
-
-            // Hýzý eski deðerine döndür
+            isMovingToRandomPosition = true;
             agent.speed = originalSpeed;
-
-
-            StartCoroutine(MoveToRandomPosition());
-        }
-    }
-
-    private IEnumerator MoveToRandomPosition()
-    {
-        while (isMovingToRandomPosition)
-        {
-            Vector3 randomDirection = Random.insideUnitSphere * 10f;
-            randomDirection += transform.position;
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
-            Vector3 finalPosition = hit.position;
-
-            // Hedefi rastgele pozisyona ayarla ve hareket et
-            agent.SetDestination(finalPosition);
-            agent.isStopped = false; // Hareketi baþlat
-
-            yield return new WaitForSeconds(5f); // Rastgele pozisyona gitme süresi
         }
     }
 }

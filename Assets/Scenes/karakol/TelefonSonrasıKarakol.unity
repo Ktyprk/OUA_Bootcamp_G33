@@ -2486,7 +2486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245558198}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0181911, y: -0.00000009960108, z: 0.000000093444285, w: 0.99983454}
+  m_LocalRotation: {x: 0.018191248, y: -0.00000009960123, z: 0.00000009344447, w: 0.99983454}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5700,33 +5700,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1484090203}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &605505663
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605505662}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &605505664
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5769,6 +5742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myConversation: {fileID: 1430985007}
   originalSpeed: 3.5
+  stopDistance: 15
 --- !u!65 &605505670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13371,12 +13345,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 34fcf25ad4af25f449f1e044bb8082f8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4056997
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34fcf25ad4af25f449f1e044bb8082f8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.068
+      value: -7.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34fcf25ad4af25f449f1e044bb8082f8,
         type: 3}
@@ -13485,10 +13459,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 605505664}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34fcf25ad4af25f449f1e044bb8082f8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 605505663}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34fcf25ad4af25f449f1e044bb8082f8,
         type: 3}
       insertIndex: -1

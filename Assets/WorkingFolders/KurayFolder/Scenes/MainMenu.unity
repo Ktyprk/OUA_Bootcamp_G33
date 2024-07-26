@@ -1190,9 +1190,7 @@ MonoBehaviour:
   issprint: 0
   maxSpeed: 5
   rotationSpeed: 10
-  staminaBar: {fileID: 0}
   playerCamera: {fileID: 0}
-  freeLookCamera: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   SpeedChangeRate: 10

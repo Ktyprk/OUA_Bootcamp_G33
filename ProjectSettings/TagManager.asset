@@ -8,6 +8,8 @@ TagManager:
   - Selectable
   - FirePoint
   - Enemy
+  - Ground
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX

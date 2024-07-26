@@ -2397,6 +2397,7 @@ MonoBehaviour:
     type: 3}
   equipSlotManager: {fileID: 1453742927}
   mainInventory: {fileID: 214170863}
+  pistolGun: {fileID: 0}
   itemTextNotificationPrefab: {fileID: 4293916247649928198, guid: 3f2eb96d99078644082e355d3475c79e,
     type: 3}
   itemTextNotTransform: {fileID: 600966573}
@@ -4581,6 +4582,7 @@ MonoBehaviour:
   weaponSlot:
     currentItem: {fileID: 0}
     itemImage: {fileID: 229744312}
+  weaponSpawnPoint: {fileID: 0}
 --- !u!1 &1458139492
 GameObject:
   m_ObjectHideFlags: 0
@@ -7512,9 +7514,7 @@ MonoBehaviour:
   issprint: 0
   maxSpeed: 5
   rotationSpeed: 10
-  staminaBar: {fileID: 950345749901787302}
   playerCamera: {fileID: 7019555755951332640}
-  freeLookCamera: {fileID: 3669723642682165341}
   MoveSpeed: 2
   SprintSpeed: 10
   SpeedChangeRate: 10
