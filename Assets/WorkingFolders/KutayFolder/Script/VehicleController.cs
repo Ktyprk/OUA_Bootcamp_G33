@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 public class VehicleController : MonoBehaviour
 {
-    [SerializeField] private GameObject player, playerCharacter, carCamera;
+    [SerializeField] private GameObject player, playerCharacter, playerCamera, carCamera;
     [SerializeField] private PrometeoCarController carController;
     
     public bool canDrive = false;
     public bool isDriving = false;
 
-    private ThirdPersonActionAsset playerActionAsset;
+    public ThirdPersonActionAsset playerActionAsset;
     private InputAction getInVehicle;
 
     public Transform playerpos;
@@ -44,44 +44,52 @@ public class VehicleController : MonoBehaviour
 
     private void ToggleDrive(InputAction.CallbackContext context)
     {
-        if (isDriving)
+        if (canDrive)
         {
-            ExitVehicle();
+            Debug.Log("Can Drive");
+            // if (!isDriving)
+            // {
+            //     EnterVehicle();
+            //     isDriving = true;
+            // }
+            // else
+            // {
+            //     ExitVehicle();
+            //     isDriving = false;
+            // }
         }
-        else if(canDrive)
-        {
-            EnterVehicle();
-        }
-        isDriving = !isDriving;
-    }
-
-    private void EnterVehicle()
-    {
-        player.GetComponent<ThirdPersonController>().enabled = false;
-        carCamera.SetActive(true);
-        playerCharacter.SetActive(false);
-        carController.enabled = true;
-        player.transform.SetParent(this.transform);
-    }
-
-    private void ExitVehicle()
-    {
         
-        player.transform.position = playerpos.position;
-        carCamera.SetActive(false);
-        playerCharacter.SetActive(true);
-        carController.enabled = false;
-        player.transform.SetParent(null, true);
-        canDrive = false;
-        StopCoroutine(ExitVehicleCoroutine());
-        StartCoroutine(ExitVehicleCoroutine());
     }
-    
-    IEnumerator ExitVehicleCoroutine()
-    {
-        yield return new WaitForSeconds(Time.deltaTime);
-        player.GetComponent<ThirdPersonController>().enabled = true;
-    }
+
+    // private void EnterVehicle()
+    // {
+    //     carCamera.SetActive(true);
+    //     playerCamera.SetActive(false);
+    //     playerCharacter.SetActive(false);
+    //     carController.enabled = true;
+    //     player.transform.SetParent(this.transform);
+    // }
+    //
+    // private void ExitVehicle()
+    // {
+    //     
+    //     player.transform.position = playerpos.position;
+    //     playerCamera.SetActive(true);
+    //     //thirdPersonController.enabled = true;
+    //     carCamera.SetActive(false);
+    //     playerCharacter.SetActive(true);
+    //     carController.enabled = false;
+    //     player.transform.SetParent(null, true);
+    //     canDrive = false;
+    //     StopCoroutine(ExitVehicleCoroutine());
+    //     StartCoroutine(ExitVehicleCoroutine());
+    // }
+    //
+    // IEnumerator ExitVehicleCoroutine()
+    // {
+    //     yield return new WaitForSeconds(Time.deltaTime);
+    //     player.GetComponent<ThirdPersonController>().enabled = true;
+    // }
 
     private void OnTriggerEnter(Collider other)
     {

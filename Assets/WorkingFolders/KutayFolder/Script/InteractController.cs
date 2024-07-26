@@ -22,6 +22,7 @@ public class InteractController : MonoBehaviour
     private ISearchable iSearchable;
     private IItemCollectible iCollectible;
     private IItemAvailability iItemAvailability;
+    private ISceneTransform iSceneTransform;
     private CharacterController _controller;
     
 
@@ -102,6 +103,7 @@ public class InteractController : MonoBehaviour
         iCollectible = null;
         iSearchable?.Search();
         iItemAvailability?.UseItem();
+        iSceneTransform?.TransformScene();
     }
     
     private void Inventory(InputAction.CallbackContext context)
@@ -132,6 +134,11 @@ public class InteractController : MonoBehaviour
         {
             iItemAvailability = other.GetComponent<IItemAvailability>();
         }
+        
+        if (other.GetComponent<ISceneTransform>() != null)
+        {
+            iSceneTransform = other.GetComponent<ISceneTransform>();
+        }
     }
     
     private void OnTriggerExit(Collider other)
@@ -149,6 +156,11 @@ public class InteractController : MonoBehaviour
         if (other.GetComponent<IItemAvailability>() != null && other.GetComponent<IItemAvailability>() == iItemAvailability)
         {
             iItemAvailability = null;
+        }
+        
+        if (other.GetComponent<ISceneTransform>() != null && other.GetComponent<ISceneTransform>() == iSceneTransform)
+        {
+            iSceneTransform = null;
         }
     } 
     

@@ -10312,7 +10312,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7129673613062425580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eeeabfea559a87418a9ff396ebddaf5, type: 3}
   m_Name: 
@@ -12703,8 +12703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73790633f0fe6a042bcf125387fbe606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7129673613062425580}
+  player: {fileID: 6896203367986758566}
   playerCharacter: {fileID: 5102072455694945820}
+  playerCamera: {fileID: 3327695462437973656}
   carCamera: {fileID: 5395874}
   carController: {fileID: 1248078907}
   canDrive: 0

@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/karakol/karakol1.kat.unity
     guid: 2b38670582cd29844a166d8d6187a2f0
+  - enabled: 1
+    path: Assets/Scenes/karakol/karakol.unity
+    guid: 30fb6719a9eb1d84a807a42d598b16f8
+  - enabled: 1
+    path: Assets/Scenes/city/city.unity
+    guid: 1c6e8203cc730f5459ee43e72218f40e
   m_configObjects: {}
