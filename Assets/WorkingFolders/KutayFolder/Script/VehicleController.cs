@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,80 +17,63 @@ public class VehicleController : MonoBehaviour
     private InputAction getInVehicle;
 
     public Transform playerpos;
+    
+    public ThirdPersonController thirdPersonController;
     private void Awake()
     {
-        playerActionAsset = new ThirdPersonActionAsset();
-        getInVehicle = playerActionAsset.Player.Vehicle;
+        thirdPersonController = player.GetComponent<ThirdPersonController>();
     }
-
-    private void OnEnable()
-    {
-        playerActionAsset.Enable();
-        getInVehicle.performed += ToggleDrive;
-    }
-
-    private void OnDisable()
-    {
-        playerActionAsset.Disable();
-        getInVehicle.performed -= ToggleDrive;
-    }
+    
 
     private void Update()
     {
+        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (canDrive)
+            {
+                player.transform.position = playerpos.position;
+                if (!isDriving)
+                {
+                    EnterVehicle();
+                    isDriving = true;
+                }
+                else
+                {
+                    ExitVehicle();
+                    isDriving = false;
+                }
+            }
+        }
+
         if (isDriving)
         {
-            
+            player.transform.position = playerpos.position;
         }
     }
+    
 
-    private void ToggleDrive(InputAction.CallbackContext context)
+    private void EnterVehicle()
     {
-        if (canDrive)
-        {
-            Debug.Log("Can Drive");
-            // if (!isDriving)
-            // {
-            //     EnterVehicle();
-            //     isDriving = true;
-            // }
-            // else
-            // {
-            //     ExitVehicle();
-            //     isDriving = false;
-            // }
-        }
-        
+        Debug.Log("Enter Vehicle");
+        thirdPersonController.enabled = false; 
+        carCamera.SetActive(true);
+        playerCharacter.SetActive(false);
+        carController.enabled = true; 
+        player.transform.SetParent(this.transform);
     }
+    
+    private void ExitVehicle()
+    {
+        Debug.Log("Exit Vehicle");
+        carCamera.SetActive(false);
+        carController.enabled = false; 
+        playerCharacter.SetActive(true);
+        //player.transform.position = playerpos.position;
+        player.transform.SetParent(null);
 
-    // private void EnterVehicle()
-    // {
-    //     carCamera.SetActive(true);
-    //     playerCamera.SetActive(false);
-    //     playerCharacter.SetActive(false);
-    //     carController.enabled = true;
-    //     player.transform.SetParent(this.transform);
-    // }
-    //
-    // private void ExitVehicle()
-    // {
-    //     
-    //     player.transform.position = playerpos.position;
-    //     playerCamera.SetActive(true);
-    //     //thirdPersonController.enabled = true;
-    //     carCamera.SetActive(false);
-    //     playerCharacter.SetActive(true);
-    //     carController.enabled = false;
-    //     player.transform.SetParent(null, true);
-    //     canDrive = false;
-    //     StopCoroutine(ExitVehicleCoroutine());
-    //     StartCoroutine(ExitVehicleCoroutine());
-    // }
-    //
-    // IEnumerator ExitVehicleCoroutine()
-    // {
-    //     yield return new WaitForSeconds(Time.deltaTime);
-    //     player.GetComponent<ThirdPersonController>().enabled = true;
-    // }
+        thirdPersonController.enabled = true; 
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -101,7 +85,7 @@ public class VehicleController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isDriving)
         {
             canDrive = false;
         }

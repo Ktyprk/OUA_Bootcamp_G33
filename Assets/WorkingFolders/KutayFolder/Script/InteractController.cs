@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using StarterAssets;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
@@ -24,6 +25,9 @@ public class InteractController : MonoBehaviour
     private IItemAvailability iItemAvailability;
     private ISceneTransform iSceneTransform;
     private CharacterController _controller;
+    
+    public VehicleController vehicleController;
+    public ThirdPersonController thirdPersonController;
     
 
     private void Awake()
@@ -58,12 +62,7 @@ public class InteractController : MonoBehaviour
         fire.performed -= Fire;
         
     }
-
-   
-
-   
     
- 
     private void Fire(InputAction.CallbackContext obj)
     {
         ItemScript equippedWeapon = InventoryManager.instance.GetEquippedWeapon();
@@ -75,9 +74,26 @@ public class InteractController : MonoBehaviour
         }
     }
 
+    private bool isdrive = false;
     private void Update()
     {
-       
+        // if (Input.GetKeyDown(KeyCode.F))
+        // {
+        //     
+        //             if (!isdrive)
+        //             {
+        //                 vehicleController.EnterVehicle();
+        //                 isdrive = true;
+        //             }
+        //             else
+        //             {
+        //                 vehicleController.ExitVehicle();
+        //                 isdrive = false;
+        //             }
+        //     
+        //     
+        // }
+    }
         // if (!isAim && !isUIopen)
         // {
         //     Cursor.visible = false;
@@ -93,7 +109,6 @@ public class InteractController : MonoBehaviour
         //     Cursor.visible = true;
         //     Cursor.lockState = CursorLockMode.None;
         // }
-    }
     
     
 
@@ -162,6 +177,5 @@ public class InteractController : MonoBehaviour
         {
             iSceneTransform = null;
         }
-    } 
-    
+    }
 } 
