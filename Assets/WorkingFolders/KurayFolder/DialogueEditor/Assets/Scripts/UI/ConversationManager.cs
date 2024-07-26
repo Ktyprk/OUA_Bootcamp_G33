@@ -142,9 +142,12 @@ namespace DialogueEditor
         //--------------------------------------
         // Public functions
         //--------------------------------------
-
+        
         public void StartConversation(NPCConversation conversation)
         {
+            
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             m_conversation = conversation.Deserialize();
             if (OnConversationStarted != null)
                 OnConversationStarted.Invoke();
@@ -156,6 +159,9 @@ namespace DialogueEditor
 
         public void EndConversation()
         {
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             SetState(eState.TransitioningDialogueOff);
 
             if (OnConversationEnded != null)
