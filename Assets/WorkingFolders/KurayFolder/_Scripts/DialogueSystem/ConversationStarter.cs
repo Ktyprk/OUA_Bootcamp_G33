@@ -13,6 +13,7 @@ public class ConversationStarter : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
+
                 Debug.Log("F key pressed. Starting conversation.");
                 ConversationManager.Instance.StartConversation(myConversation);
             }
