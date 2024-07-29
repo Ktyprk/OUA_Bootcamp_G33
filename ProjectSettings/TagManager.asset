@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Ground
   - CinemachineTarget
+  - Waypoint
   layers:
   - Default
   - TransparentFX
