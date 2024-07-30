@@ -3807,6 +3807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ba2b40ceb2b67439dc41905163bcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmoRadius: 5
 --- !u!4 &507009298
 Transform:
   m_ObjectHideFlags: 0
@@ -10742,6 +10743,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1291821140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1559700619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559700621}
+  - component: {fileID: 1559700620}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1559700620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559700619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 35.3
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 2ed798fef94314e44b10cbf536e0675f, type: 2}
+--- !u!4 &1559700621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559700619}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.35005713, y: 0.2527094, z: -0.019708786, w: 0.9017814}
+  m_LocalPosition: {x: -43.37996, y: -68.063, z: 74.56398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 39.89, y: 35.172, z: 10.618}
 --- !u!1 &1563440478
 GameObject:
   m_ObjectHideFlags: 0
@@ -15384,3 +15434,4 @@ SceneRoots:
   - {fileID: 184061717}
   - {fileID: 1010621571}
   - {fileID: 802590349}
+  - {fileID: 1559700621}

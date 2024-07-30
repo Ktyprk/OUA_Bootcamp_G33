@@ -2486,7 +2486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245558198}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.018191248, y: -0.00000009971749, z: 0.00000009355351, w: 0.99983454}
+  m_LocalRotation: {x: 0.018191248, y: -0.00000009971745, z: 0.00000009355348, w: 0.99983454}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8753,6 +8753,55 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &927163581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927163583}
+  - component: {fileID: 927163582}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &927163582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927163581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 35.3
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 2ed798fef94314e44b10cbf536e0675f, type: 2}
+--- !u!4 &927163583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927163581}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.35005713, y: 0.2527094, z: -0.019708786, w: 0.9017814}
+  m_LocalPosition: {x: -43.37996, y: -68.063, z: 74.56398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 39.89, y: 35.172, z: 10.618}
 --- !u!1 &935308837
 GameObject:
   m_ObjectHideFlags: 0
@@ -12846,7 +12895,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 1464219219}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -22245,3 +22294,4 @@ SceneRoots:
   - {fileID: 1282628918}
   - {fileID: 1496372751}
   - {fileID: 184061717}
+  - {fileID: 927163583}
