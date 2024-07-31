@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/city/city.unity
     guid: 1c6e8203cc730f5459ee43e72218f40e
+  - enabled: 1
+    path: "Assets/Scenes/city/Orta\xE7a\u011F.unity"
+    guid: d8f213b28287d8b4dab42cf4a34f94e5
   m_configObjects: {}
