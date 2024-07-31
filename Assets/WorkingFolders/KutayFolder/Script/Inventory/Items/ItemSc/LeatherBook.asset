@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c819faef6c27172479b7fa2779d81132, type: 3}
+  m_Name: LeatherBook
+  m_EditorClassIdentifier: 
+  itemName: a Leather Book
+  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemID: 3
+  itemDescription: sihirli kitap
+  itemValue: 0
+  itemDamage: 0
+  itemArmor: 0
+  itemType: 2
+  stackable: 0
+  isuseable: 1
+  isequippable: 0
+  maxStackSize: 4
+  itemPrefab: {fileID: 7503153283253050945, guid: a749d0800287e4d40b96dc54d4a39759,
+    type: 3}
