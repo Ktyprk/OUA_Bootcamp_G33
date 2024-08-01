@@ -238,6 +238,7 @@ Kullanılacak NPC için konuşmalar yapılmıştır.(4P)                        
 
 ![image](https://github.com/user-attachments/assets/95357f51-42c0-41fb-b838-3ea57f6bce04)
 
+![image](https://github.com/user-attachments/assets/9687ec99-110c-4f4d-aca7-8dfde28729d4)
 
 Oyunun GDD 'sine dair doküman aşağıdaki gibi hazırlanmıştır.
 
