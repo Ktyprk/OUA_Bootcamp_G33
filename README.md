@@ -197,104 +197,46 @@ Mekanikler gözden geçirilmiştir.
 
 <h1> Sprint 3 (80P)</h1> 
 
-Sprint içinde tamamlanması tahmin edilen puan:
+Sprint içinde tamamlanması tahmin edilen puan:(80P)
 
 Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir.Toplantılar esnasında eksik kalan kısımların üzerinden geçilmiştir.
 
-<h3> Puan Tamamlama Mantığı</h3>  
+<h3> Puan Tamamlama Mantığı</h3> (30P)
 Puan tanımlanması aşağıdaki konular özelinde detaylandırılmıştır.Toplam puan 80 olarak kararlaştırılmıştır.
 
-Asana'da düzenlemeler yapılmıştır.(Asana'nın süresi dolduğu için görsel koyulamadı.)                                                                                                                                
-Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır.                                  
-Level design üzerinden geçilmiştir,sahneler düzenlenmiştir.                                                                                                                                                         Mekaniklerde hatalı olanlar kontrol edilmiştir.
-Oyun videosunun hazırlanması 
-Video planlamasının yapılması ve neler ekleneceğinin konuşulması
+Asana'da düzenlemeler yapılmıştır.(Asana'nın süresi dolduğu için görsel koyulamadı.)(5P)                                                                                                                          Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır. (8P)                                 
+Level design üzerinden geçilmiştir,sahneler düzenlenmiştir.(8P)                                                                                                                                                 Mekaniklerde hatalı olanlar kontrol edilmiştir.(4P)
+Oyun videosunun hazırlanması (2P)
+Video planlamasının yapılması ve neler ekleneceğinin konuşulması(3P)
 
-<h3>Sprint Review:</h3>
+<h3>Sprint Review:</h3>(30P)
 
-Sprint 2 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. Diyalogların üzerinden geçilmiştir.
-Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,Kuray Tunç
+Bootcamp boyunca verilen emek için toplantıda yaptıklarımız ve yapamadıklarımız hakkında konuşup birbirimize destek olduk,neleri daha iyi yapabilirdik üzerinden geçtik.(5P)
+Sprint 3 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. (8P)
+Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. (8P)
+Diyalogların üzerinden geçilmiştir.(3P)
+Karakter kodları,mekanikler,animasyonlar ,sahne tasarımları konusunda git tarafında olan hatalarla ilgilenilmiştir.(6P)
+Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem Kütük,Kuray Tunç
 
+![image](https://github.com/user-attachments/assets/48f9996c-ba47-4d8f-b64b-a5b942f6866a)
 
-<h3>Sprint Retrospective:</h3> 
+![image](https://github.com/user-attachments/assets/9373811b-ff1f-4857-b8d5-879ba741b217)
 
-Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hataların giderilmesi için denemeler yapılmıştır.                                                   
+<h3>Sprint Retrospective:</h3>(10P)
 
- <h3>Sprint Notları </h3>
-
-UI ve asset konusunda yeni kanallar açılmıştır.                                                   
-Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.                                                           
-Kullanılacak NPC için konuşmalar yapılmıştır.                                                                                            
-Asset örnekleri araştırılmıştır.                                                                                                  
-Mekanikler gözden geçirilmiştir.                                                                                                                 
-
-![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
-
-![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hataların giderilmesi için denemeler yapılmıştır.(10P)                                                 
 
 ![image](https://github.com/user-attachments/assets/9ae6908b-c83d-4769-a870-aaca1b023b11)
 
-
-Sprint Review:
-
-Takım ruhunu koruyup Scrum boyunca özveriyle çalışıldığı için takım üyeleri birbirini tebrik etti.
-5 karakter tasarımı, 3 adet map tasarımı, birden fazla platform kodları, farklı mekanikler, karakter ve platform animasyonları, online server sistemi, 3d tasarım assetleri, kamera entegrasyonu ve reklam entegrasyonu yapılmıştır.
-Tamamlanması gereken 36 puanlık backlog puanı tamamlanmıştır.
-Sprint Review katılımcıları: Ahmet Yunus Turna, Arif Furkan Karaca, Kevser Bilgiç, Umut Yiğit, Hilal Karakuş.
+![image](https://github.com/user-attachments/assets/86bc1152-2e07-439a-854a-be2117492bbd)
 
 
+<h3>Sprint Notları </h3>(10P)
+                                               
+Kullanılmak üzere kanalda NPC asset örnekleri paylaşılmıştır.                                                           
+Kullanılacak NPC için konuşmalar yapılmıştır.                                                                                                                                                                       Mekanikler gözden geçirilmiştir.                                                                                                                  
 
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/95357f51-42c0-41fb-b838-3ea57f6bce04)
 
 
 
