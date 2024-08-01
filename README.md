@@ -199,24 +199,24 @@ Mekanikler gözden geçirilmiştir.
 
 Sprint içinde tamamlanması tahmin edilen puan:(80P)
 
-Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir.Toplantılar esnasında eksik kalan kısımların üzerinden geçilmiştir.
+Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir.Toplantılar esnasında eksik kalan kısımların üzerinden geçilmiştir.        
 
-<h3> Puan Tamamlama Mantığı</h3> (30P)
-Puan tanımlanması aşağıdaki konular özelinde detaylandırılmıştır.Toplam puan 80 olarak kararlaştırılmıştır.
+<h3> Puan Tamamlama Mantığı</h3> (30P)              
+Puan tanımlanması aşağıdaki konular özelinde detaylandırılmıştır.Toplam puan 80 olarak kararlaştırılmıştır.                                                                          
 
-Asana'da düzenlemeler yapılmıştır.(Asana'nın süresi dolduğu için görsel koyulamadı.)(5P)                                                                                                                          Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır. (8P)                                 
-Level design üzerinden geçilmiştir,sahneler düzenlenmiştir.(8P)                                                                                                                                                 Mekaniklerde hatalı olanlar kontrol edilmiştir.(4P)
-Oyun videosunun hazırlanması (2P)
-Video planlamasının yapılması ve neler ekleneceğinin konuşulması(3P)
+Asana'da düzenlemeler yapılmıştır.(Asana'nın süresi dolduğu için görsel koyulamadı.)(5P)                                                                                                                            Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır. (8P)                                                                                                                               
+Level design üzerinden geçilmiştir,sahneler düzenlenmiştir.(8P)                                                                                                                                                     Mekaniklerde hatalı olanlar kontrol edilmiştir.(4P)                                                                            
+Oyun videosunun hazırlanması (2P)                                                                           
+Video planlamasının yapılması ve neler ekleneceğinin konuşulması(3P)                                                                            
 
 <h3>Sprint Review:</h3>(30P)
 
-Bootcamp boyunca verilen emek için toplantıda yaptıklarımız ve yapamadıklarımız hakkında konuşup birbirimize destek olduk,neleri daha iyi yapabilirdik üzerinden geçtik.(5P)
-Sprint 3 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. (8P)
-Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. (8P)
-Diyalogların üzerinden geçilmiştir.(3P)
-Karakter kodları,mekanikler,animasyonlar ,sahne tasarımları konusunda git tarafında olan hatalarla ilgilenilmiştir.(6P)
-Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem Kütük,Kuray Tunç
+Bootcamp boyunca verilen emek için toplantıda yaptıklarımız ve yapamadıklarımız hakkında konuşup birbirimize destek olduk,neleri daha iyi yapabilirdik üzerinden geçtik.(5P)                                
+Sprint 3 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. (8P)                                                                                      
+Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. (8P)                                                                                                             
+Diyalogların üzerinden geçilmiştir.(3P)                                                                              
+Karakter kodları,mekanikler,animasyonlar ,sahne tasarımları konusunda git tarafında olan hatalarla ilgilenilmiştir.(6P)                                                    
+Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem Kütük,Kuray Tunç                                                               
 
 ![image](https://github.com/user-attachments/assets/48f9996c-ba47-4d8f-b64b-a5b942f6866a)
 
@@ -224,7 +224,7 @@ Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem K
 
 <h3>Sprint Retrospective:</h3>(10P)
 
-Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hataların giderilmesi için denemeler yapılmıştır.(10P)                                                 
+Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hataların giderilmesi için denemeler yapılmıştır.(10P)                                                                                         
 
 ![image](https://github.com/user-attachments/assets/9ae6908b-c83d-4769-a870-aaca1b023b11)
 
@@ -233,13 +233,15 @@ Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hatal
 
 <h3>Sprint Notları </h3>(10P)
                                                
-Kullanılmak üzere kanalda NPC asset örnekleri paylaşılmıştır.                                                           
-Kullanılacak NPC için konuşmalar yapılmıştır.                                                                                                                                                                       Mekanikler gözden geçirilmiştir.                                                                                                                  
+Kullanılmak üzere kanalda NPC asset örnekleri paylaşılmıştır.(4P)                                                                                                                                                   
+Kullanılacak NPC için konuşmalar yapılmıştır.(4P)                                                                                                                                                                  Mekanikler gözden geçirilmiştir.(2P)                                                                                                                                                                                              
 
 ![image](https://github.com/user-attachments/assets/95357f51-42c0-41fb-b838-3ea57f6bce04)
 
 
+Oyunun GDD 'sine dair doküman aşağıdaki gibi hazırlanmıştır.
 
+https://docs.google.com/presentation/d/1E-dKCPXPkcQjG2bIhJLybxvgYeeS-P_k/edit?usp=sharing&ouid=102266274275050653169&rtpof=true&sd=true
 
 
 
