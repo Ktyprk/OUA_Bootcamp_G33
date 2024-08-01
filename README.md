@@ -188,4 +188,117 @@ Mekanikler gözden geçirilmiştir.
 
 ![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
 
-![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)                                  
+![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)     
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+<h1> Sprint 3 (80P)</h1> 
+
+Sprint içinde tamamlanması tahmin edilen puan:
+
+Daily Scrum: Daily Scrum toplantıları Whatsapp üzerinden kararlaştırılıp Discord üzerinden ekran paylaşımı yapılarak devam etmiştir.Toplantılar esnasında eksik kalan kısımların üzerinden geçilmiştir.
+
+<h3> Puan Tamamlama Mantığı</h3>  
+Puan tanımlanması aşağıdaki konular özelinde detaylandırılmıştır.Toplam puan 80 olarak kararlaştırılmıştır.
+
+Asana'da düzenlemeler yapılmıştır.(Asana'nın süresi dolduğu için görsel koyulamadı.)                                                                                                                                
+Diyaloglar gözden geçirilmiştir.Diyaloglara eklemeler yapılmıştır.                                  
+Level design üzerinden geçilmiştir,sahneler düzenlenmiştir.                                                                                                                                                         Mekaniklerde hatalı olanlar kontrol edilmiştir.
+Oyun videosunun hazırlanması 
+Video planlamasının yapılması ve neler ekleneceğinin konuşulması
+
+<h3>Sprint Review:</h3>
+
+Sprint 2 için  ekip ile toplanılmış ve Sprint gözden geçirilmiştir. Oluşan Bug'lar ve hikayedeki gidiş hakkında konuşulmuştur. Diyalogların üzerinden geçilmiştir.
+Sprint Review katılımcıları: Kader Sönmez,İrem Fındık,Kutay Perk,Kerem,Kuray Tunç
+
+
+<h3>Sprint Retrospective:</h3> 
+
+Bug'ların çözümlenmesi için çalışma yapılmıştır.Oyunda alınan hataların giderilmesi için denemeler yapılmıştır.                                                   
+
+ <h3>Sprint Notları </h3>
+
+UI ve asset konusunda yeni kanallar açılmıştır.                                                   
+Kanalda kullanılmak üzere asset örnekleri paylaşılmıştır.                                                           
+Kullanılacak NPC için konuşmalar yapılmıştır.                                                                                            
+Asset örnekleri araştırılmıştır.                                                                                                  
+Mekanikler gözden geçirilmiştir.                                                                                                                 
+
+![image](https://github.com/user-attachments/assets/44ac878b-ef1e-4a4b-b887-e097e6f303e7)
+
+![image](https://github.com/user-attachments/assets/755ab608-cf9a-43ad-9272-1c19d5330f65)   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/9ae6908b-c83d-4769-a870-aaca1b023b11)
+
+
+Sprint Review:
+
+Takım ruhunu koruyup Scrum boyunca özveriyle çalışıldığı için takım üyeleri birbirini tebrik etti.
+5 karakter tasarımı, 3 adet map tasarımı, birden fazla platform kodları, farklı mekanikler, karakter ve platform animasyonları, online server sistemi, 3d tasarım assetleri, kamera entegrasyonu ve reklam entegrasyonu yapılmıştır.
+Tamamlanması gereken 36 puanlık backlog puanı tamamlanmıştır.
+Sprint Review katılımcıları: Ahmet Yunus Turna, Arif Furkan Karaca, Kevser Bilgiç, Umut Yiğit, Hilal Karakuş.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
