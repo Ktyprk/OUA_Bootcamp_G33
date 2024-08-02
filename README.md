@@ -244,6 +244,14 @@ Oyunun GDD 'sine dair doküman aşağıdaki gibi hazırlanmıştır.
 
 https://docs.google.com/presentation/d/1E-dKCPXPkcQjG2bIhJLybxvgYeeS-P_k/edit?usp=sharing&ouid=102266274275050653169&rtpof=true&sd=true
 
+Game Design Document (GDD)
 
+https://docs.google.com/document/d/1FKiYW-fq4CArnFbd65Pm-say4h51c5Oz/edit?pli=1
 
+Oyunun Hikayesi
 
+https://docs.google.com/document/d/1s4bV4sjlNt29tKHfbcHGij8UJcQu7FRj/edit
+
+Oyunun Diyalogları
+
+https://docs.google.com/document/d/10XiVQvqvnxNwQeSVw5W-zQeAa9fnsg00/edit
